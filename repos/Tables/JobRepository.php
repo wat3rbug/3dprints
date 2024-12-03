@@ -24,8 +24,22 @@ class JobRepository {
         }
     }
 
+    function getJobById($id) {
+        if (isset($id)) {
+            $sql = "SELECT jobs.name, jobs.id, jobs.photo, status.status FROM jobs JOIN status on jobs.status = status.id WHERE success = 0 AND jobs.id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
+            $statement->execute();
+            $output = array();
+            while ($row = $statement->fetch()) {
+                $output[] = $row;
+            }
+            return $output;
+        }
+    }
+
     function getAllJobs() {
-        $sql = "SELECT jobs.name, jobs.id, jobs.photo, status.status FROM jobs JOIN status on jobs.status = status.id ORDER BY jobs.Id DESC";
+        $sql = "SELECT jobs.name, jobs.id, jobs.photo, status.status FROM jobs JOIN status on jobs.status = status.id WHERE success = 0 ORDER BY jobs.Id DESC";
         $statement= $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
@@ -33,6 +47,36 @@ class JobRepository {
             $output[] = $row;
         }
         return $output;
+    }
+
+    function deleteJob($id) {
+        if (isset($id) && $id > 0) {
+            $sql = "DELETE FROM jobs WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
+            $statement->execute();
+        }
+    }
+
+    function updateJob($id, $name, $photo, $status) {
+        if (isset($id) && isset($status) && isset($name)) {
+            $sql = "UPDATE JOBS SET name = ?, photo = ?, status =? WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $name);
+            $statement->bindParam(2, $photo);
+            $statement->bindParam(3, $status);
+            $statement->bindParam(4, $id);
+            $statement->execute();
+        }
+    }
+
+    function completeJob($id) {
+        if (isset($id) && $id > 0) {
+            $sql = "UPDATE jobs SET success = 1 WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
+            $statement->execute();
+        }
     }
 }
 ?>

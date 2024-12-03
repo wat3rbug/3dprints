@@ -35,20 +35,7 @@
                     <th class="info">Status</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <!-- <td>something</td>
-                    <td>ss of it</td>
-                    <td>
-
-                    </td>
-                    <td>
-                        <select class="form-control" name="jobStatus">
-                            <option value="1">text</option>
-                        </select>
-                    </td> -->
-                </tr>
-            </tbody>
+            <tbody></tbody>
             <tfoot>
                 <tr>
                     <td>
@@ -86,12 +73,68 @@
         </div>
     </div>
 </div>
-<div class="modal editStatus" tabeindex="-1" role="dialog">
+
+<!-- edit job modal section -->
+
+<div class="modal editJob" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Edit Job</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-bael="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        <label>Name</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="hidden" class="editJobId" />
+                        <input type="text" class="form-control editJobName" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        <label>Photo or URL</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control editJobPhoto" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        <label>Status</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control editJobStatus"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" title="update the job" 
+                onclick="saveJobStatus()">
+                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                &nbsp;Update</button>&nbsp;
+                <button type="button" class="btn btn-default" title="cancel changes" onclick="closeEditJob()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                &nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- edit status modal section -->
+
+<div class="modal editStatus" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center">Edit Status</h4>
-                <button type=""button class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
