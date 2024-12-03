@@ -56,12 +56,14 @@ function editStatus(id) {
     $.ajax({
         url: "repos/getStatusById.php",
         type: "post",
+        dataType: "json",
         data: {
             statId: id
         },
         success: function(result) {
-            $('.editStatusName').val(result['status']);
-            $('editStatId').val(id);
+            var name = result[0].status;
+            $('.editStatName').val(name);
+            $('.editStatId').val(id);
         }
     });
     $('.editStatus').modal('show');
@@ -119,6 +121,23 @@ function getDefaultStatus() {
         dataType: "json",
         success: function(result) {
             defaultStatus = result['status'];
+        }
+    })
+}
+
+function saveStatus() {
+    var id = $('.editStatId').val();
+    var name = $('.editStatName').val();
+    $.ajax({
+        url: "repos/updateStatus.php",
+        type: "post",
+        data: {
+            "id": id,
+            "name": name
+        },
+        success: function(results) {
+            closeEditStatus();
+            listStatusTable();
         }
     })
 }

@@ -1,7 +1,7 @@
 <?php
 require "Tables/StatusRepository.php";
 
-$id = $_POST['id'];
+$id = $_POST['statId'];
 
 if (isset($id)) {
     $db = new StatusRepository();
