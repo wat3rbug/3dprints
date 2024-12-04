@@ -1,9 +1,7 @@
 $(document).ready(function() {
-    var defaultStatus = null;
 
     updateEditJobModalStatus();
     listStatusTable();
-    getDefaultStatus();
     listAllJobs();
 
     $('.addJob').on('click', function() {
@@ -187,16 +185,6 @@ function removeStatus(id) {
 
 function closeEditStatus() {
     $('.editStatus').modal('hide');
-}
-
-function getDefaultStatus() {
-    $.ajax({
-        url: "repos/getDefaultStatus.php",
-        dataType: "json",
-        success: function(result) {
-            defaultStatus = result['status'];
-        }
-    })
 }
 
 // edit status modal section

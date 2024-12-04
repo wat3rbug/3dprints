@@ -1,8 +1,8 @@
 <?php
 require "Tables/StatusRepository.php";
-// $status = $_POST["status"];
+$status = $_POST["name"];
 
-$status = "to hell and back";
+// $status = "to hell and back";
 
 if (isset($status)) {
     $db = new StatusRepository();
