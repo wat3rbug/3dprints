@@ -1,12 +1,15 @@
 <?php 
-require "Tables\CommentRepository.php";
-// $comment = $_POST["comment"];
-$comment = "test this";
-// $jobid = $_POST["jobid"];
-$jobid = "1";
+require "Tables/CommentRepository.php";
 
-if (isset($comment) && isset($jobid) && $jobid > 0) {
+$author = $_POST["author"];
+$comment = $_POST['comment'];
+$jobid = $_POST["job"];
+
+// $author = "doug";
+// $comment = "test";
+// $jobid = 1;
+if (isset($comment) && isset($jobid) && isset($author)) {
     $db = new CommentRepository();
-    $db->addCommentToJob($comment, $jobid);
+    $db->addCommentToJob($comment, $jobid, $author);
 }
 ?>

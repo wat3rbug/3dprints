@@ -62,7 +62,7 @@ class StatusRepository {
 
     function createStatus($status) {
         if (isset($status)) {
-            $sql = "INSERT INTO status (status) VALUES(?)";
+            $sql = "INSERT INTO status (status.status) VALUES(?)";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $status);
             $statement->execute();

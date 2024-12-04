@@ -30,32 +30,41 @@
                 <tr>
                     <th class="info">Action</th>
                     <th class="info">Name</th>
+                    <th class="info">URL</th>
                     <th class="info">Photo</th>
                     <th class="info">Comments</th>
                     <th class="info">Status</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
+            <!-- add job section -->
             <tfoot>
                 <tr>
                     <td>
                         <button type="submit" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus"></span>
+                            <span class="glyphicon glyphicon-plus addJob"></span>
                         </button>
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="photo" />
+                        <input type="text" class="form-control addJobName" />
                     </td>
                     <td>
-                        <input type="text" class="form-control" name="comments" />
+                        <input type="text" class="form-control addJobURL" />
                     </td>
-                    <td class="defaultstatus">
+                    <td>
+                        <input type="text" class="form-control addJobPhoto" />
+                    </td>
+                    <td colspan="2">&nbsp;
                     </td>
                 </tr>
             </tfoot>
         </table>
     </div>
     <div class="col-sm-2">
+        <!-- status section -->
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 Status Options
@@ -64,10 +73,10 @@
                 <ul class="list-group statusgroup">
                 </ul>
                 <div class="input-group">
-                    <span class="input-group-addon btn btn-success" title="Add a status">
+                    <span class="input-group-addon btn btn-success addStatus" title="Add a status">
                         <span class="glyphicon glyphicon-plus" id="plusshow"></span>
                     </span>
-                    <input type="text" class="form-control" aria-describedby="plusshow">
+                    <input type="text" class="form-control newStatus" aria-describedby="plusshow">
                 </div>
             </div>
         </div>
@@ -98,7 +107,16 @@
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     <div class="col-sm-6 text-right">
-                        <label>Photo or URL</label>
+                        <label>URL</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control editJobURL" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        <label>Photo</label>
                     </div>
                     <div class="col-sm-4">
                         <input type="text" class="form-control editJobPhoto" />
@@ -157,6 +175,60 @@
                 <button type="button" class="btn btn-default" title="cancel changes" onclick="closeEditStatus()">
                     <span class="glyphicon glyphicon-ban-circle"></span>
                 &nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- comments modal section-->
+
+<div class="modal viewComments" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Comments</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-10">
+                        <input type="hidden" class="commentJobId" />
+                        <table class="table table-striped commentsTable">
+                            <thead>
+                                <tr>
+                                    <th class="info">Date</th>
+                                    <th class="info">Comment</th>
+                                    <th class="info">Author</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr></tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><button type="button" class="btn btn-success addComment" title="Add a comment">
+                                            <span class="glyphicon glyphicon-plus"></span>&nbsp;Comment
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control addCommentBox" />
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control addAuthor" />
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" title="Close comments" onclick="closeComments()">
+                    <span class="glyphicon glyphicon-remove"></span>
+                &nbsp;Close</button>
             </div>
         </div>
     </div>

@@ -26,7 +26,7 @@ class JobRepository {
 
     function getJobById($id) {
         if (isset($id)) {
-            $sql = "SELECT jobs.name, jobs.id, jobs.photo, status.status FROM jobs JOIN status on jobs.status = status.id WHERE success = 0 AND jobs.id = ?";
+            $sql = "SELECT jobs.name, jobs.url, jobs.id, jobs.photo, jobs.status FROM jobs WHERE success = 0 AND jobs.id = ?";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $id);
             $statement->execute();
@@ -39,7 +39,7 @@ class JobRepository {
     }
 
     function getAllJobs() {
-        $sql = "SELECT jobs.name, jobs.id, jobs.photo, status.status FROM jobs JOIN status on jobs.status = status.id WHERE success = 0 ORDER BY jobs.Id DESC";
+        $sql = "SELECT jobs.name, jobs.id, jobs.url, jobs.photo, status.status FROM jobs JOIN status on jobs.status = status.id WHERE success = 0";
         $statement= $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
@@ -58,14 +58,15 @@ class JobRepository {
         }
     }
 
-    function updateJob($id, $name, $photo, $status) {
+    function updateJob($id, $name, $photo, $status, $url) {
         if (isset($id) && isset($status) && isset($name)) {
-            $sql = "UPDATE JOBS SET name = ?, photo = ?, status =? WHERE id = ?";
+            $sql = "UPDATE jobs SET jobs.url = ?, name = ?, photo = ?, jobs.status = ? WHERE id = ?";
             $statement = $this->conn->prepare($sql);
-            $statement->bindParam(1, $name);
-            $statement->bindParam(2, $photo);
-            $statement->bindParam(3, $status);
-            $statement->bindParam(4, $id);
+            $statement->bindParam(1, $url);
+            $statement->bindParam(2, $name);
+            $statement->bindParam(3, $photo);
+            $statement->bindParam(4, $status);
+            $statement->bindParam(5, $id);
             $statement->execute();
         }
     }
@@ -75,6 +76,17 @@ class JobRepository {
             $sql = "UPDATE jobs SET success = 1 WHERE id = ?";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $id);
+            $statement->execute();
+        }
+    }
+
+    function addJob($name, $photo, $url) {
+        if (isset($name)) {
+            $sql = "INSERT INTO jobs (url, name, photo, status) VALUES (?, ?, ?, 6)";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $url);
+            $statement->bindParam(2, $name);
+            $statement->bindParam(3, $photo);
             $statement->execute();
         }
     }

@@ -25,8 +25,8 @@ class CommentRepository {
     }
 
     function getCommentsForId($id) {
-        if (isset($id) && $id > 0) {
-            $sql = "SELECT * FROM Comments WHERE jobid = ? ORDER BY id DESC";
+        if (isset($id)) {
+            $sql = "SELECT * FROM comments WHERE jobid = ? ORDER BY id ASC";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $id);
             $statement->execute();
@@ -35,17 +35,16 @@ class CommentRepository {
                 $output[] = $row;
             }
             return $output;
-        } else {
-            return null;
         }
     }
 
-    function addCommentToJob($comment, $jobid) {
-        if (isset($jobid) && $jobid > 0 && isset($comment)) {
-            $sql = "INSERT INTO comments (comment, jobid) VALUES (?, ?)";
+    function addCommentToJob($comment, $jobid, $author) {
+        if (isset($jobid) && isset($comment) && isset($author)) {
+            $sql = "INSERT INTO comments (comment, jobid, originator) VALUES (?, ?, ?)";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(2, $jobid);
             $statement->bindParam(1, $comment);
+            $statement->bindParam(3, $author);
             $statement->execute();
         }
     }

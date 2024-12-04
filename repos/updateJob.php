@@ -4,12 +4,13 @@ $id = $_POST["id"];
 $name = $_POST["name"];
 $photo = $_POST["photo"];
 $status = $_POST["status"];
-// $id = 6;
-// $name = "ignition nut for BMW2";
+$url = $_POST["url"];
+// $id = 7;
+// $name = "Xeno";
 // $photo = "";
-// $status = 4;
+// $status = 1;
 
 if (isset($id) && isset($status) && isset($name)) {
     $db = new JobRepository();
-    $db->updateJob($id, $name, $photo, $status);
+    $db->updateJob($id, $name, $photo, $status, $url);
 }
