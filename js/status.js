@@ -46,6 +46,7 @@ function addStatus() {
         },
         success: function() {
             $('.newStatus').val('');
+            updateEditJobModalStatus();
             listStatusTable();
         }
     })
