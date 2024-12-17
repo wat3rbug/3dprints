@@ -39,7 +39,7 @@ class JobRepository {
     }
 
     function getAllJobs() {
-        $sql = "SELECT jobs.name, jobs.id, jobs.url, jobs.photo, status.status FROM jobs JOIN status on jobs.status = status.id WHERE success = 0";
+        $sql = "SELECT jobs.name, jobs.id, jobs.url, jobs.photo, status.status FROM jobs JOIN status on jobs.status = status.id WHERE success = 0 ORDER BY status.id";
         $statement= $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
@@ -82,7 +82,7 @@ class JobRepository {
 
     function addJob($name, $photo, $url) {
         if (isset($name)) {
-            $sql = "INSERT INTO jobs (url, name, photo, status) VALUES (?, ?, ?, 6)";
+            $sql = "INSERT INTO jobs (url, name, photo, status) VALUES (?, ?, ?, 16)";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $url);
             $statement->bindParam(2, $name);
