@@ -38,8 +38,19 @@ class JobRepository {
         }
     }
 
+    function getAllCompletedJobs() {
+        $sql = "SELECT jobs.id, jobs.name, jobs.url, jobs.photo, count(comments.comment) as comments from jobs left join comments on jobs.id = comments.jobid where success = 1 group by jobs.id";
+        $statement= $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while ($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
+
     function getAllJobs() {
-        $sql = "SELECT jobs.name, jobs.id, jobs.url, jobs.photo, status.status FROM jobs JOIN status on jobs.status = status.id WHERE success = 0 ORDER BY status.id";
+        $sql = "SELECT jobs.name, jobs.id, jobs.url, jobs.photo, status.status, count(comments.comment) AS comments FROM jobs JOIN status ON jobs.status = status.id LEFT JOIN comments ON jobs.id = comments.jobid WHERE success = 0 GROUP BY jobs.id ORDER BY status.id";
         $statement= $this->conn->prepare($sql);
         $statement->execute();
         $output = array();

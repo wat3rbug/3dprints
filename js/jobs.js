@@ -19,7 +19,7 @@ function listAllJobs() {
         success: function(results) {
             $('.joblisting tbody').empty();
             if (results.length  == 0 || results == null) {
-                var empty = '<tr><td colspan="5" class="text-center"><td>No jobs</td></tr>';
+                var empty = '<tr><td colspan="5" class="text-center">No Data</td>No jobs</td></tr>';
                 $('.joblisting').find('tbody tr').remove();
                 $('.joblisting').append(empty);
             } else {
