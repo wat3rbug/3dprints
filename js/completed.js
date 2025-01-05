@@ -67,4 +67,5 @@ function viewComments(id) {
 
 function closeComments() {
     $('.viewComments').modal('hide');
+
 }

@@ -42,11 +42,9 @@ function addStatus() {
     })
 }
 
-function listCommentsById(id) {
-    var block = '<td><button type="button" class="btn btn-link" ';
-    block += 'onclick="viewComments(' + id + ')">';
-    block += '<span class="glyphicon glyphicon-info-sign"></span></button>';
-    block += '</td>';
+function listCommentsById(id, comments) {
+    var block = '<button type="button" class="btn btn-link" title="View comments" onclick="viewComments(' + id + ')">';
+    block += comments + '</button>&nbsp;';
     return block;
 }
 

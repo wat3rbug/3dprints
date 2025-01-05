@@ -29,7 +29,7 @@ function listAllJobs() {
                     line += '<td>' + result['name'] + '</td>';
                     line += '<td><a href="' + result['url'] + '" target="_blank">' + result['url'] + '</a></td>';
                     line += '<td>' + result['photo'] + '</td>';
-                    line +=  listCommentsById(result['id']);
+                    line +=  '<td>' + listCommentsById(result['id'], result['comments']) + '</td>';
                     line += '<td>' + result['status'] + '</td></tr>';
                     $('.joblisting tbody').append(line);
                 }
