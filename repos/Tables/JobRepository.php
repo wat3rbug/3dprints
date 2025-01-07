@@ -24,9 +24,18 @@ class JobRepository {
         }
     }
 
+    function undoJob($id) {
+        if (isset($id)) {
+            $sql = "UPDATE jobs SET success = 0 WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
+            $statement->execute();
+        }
+    }
+
     function getJobById($id) {
         if (isset($id)) {
-            $sql = "SELECT jobs.name, jobs.url, jobs.id, jobs.photo, jobs.status FROM jobs WHERE success = 0 AND jobs.id = ?";
+            $sql = "SELECT jobs.name, jobs.url, jobs.id, jobs.photo, jobs.status FROM jobs WHERE jobs.id = ?";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $id);
             $statement->execute();
@@ -39,7 +48,7 @@ class JobRepository {
     }
 
     function getAllCompletedJobs() {
-        $sql = "SELECT jobs.id, jobs.name, jobs.url, jobs.photo, count(comments.comment) as comments from jobs left join comments on jobs.id = comments.jobid where success = 1 group by jobs.id";
+        $sql = "SELECT jobs.id, jobs.name, jobs.url, jobs.photo, count(comments.comment) AS comments FROM jobs LEFT JOIN comments ON jobs.id = comments.jobid WHERE success = 1 GROUP BY jobs.id";
         $statement= $this->conn->prepare($sql);
         $statement->execute();
         $output = array();

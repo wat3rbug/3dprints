@@ -16,13 +16,18 @@ function getCompletedJobs() {
         success: function(results) {
             $('.joblisting tbody').empty();
             if (results.length == 0 || results == null) {
-                var empty = '<tr><td colspan="3" class="text-center">No Data</td></tr>';
+                var empty = '<tr><td colspan="4" class="text-center">No Data</td></tr>';
                 $('.joblisting').find('tbody tr').remove();
                 $('.joblisting').append(empty);
             } else {
                 for (i = 0; i < results.length; i++) {
                     var result = results[i];
-                    var line = '<tr><td>' + result['name'] + '</td>';
+                    var line = '<tr>';
+                    line += '<td><button class="btn btn-link" onclick="undo(' + result['id'] + ')" title="Undo completion">';
+                    line += '<span class="glyphicon glyphicon-refresh"></span></button>&nbsp;';
+                    line += '<button class="btn btn-link" onclick="copy(' + result['id'] + ')" title="Duplicate new task">';
+                    line += '<span class="glyphicon glyphicon-duplicate"></span></button></td>';
+                    line += '<td>' + result['name'] + '</td>';
                     line += '<td><a href="' + result['url'] + '" target="_blank">' +result['url'] + '</a></td>';
                     if (result['photo'] == null || result['photo'] == "") {
                         line += '<td>&nbsp;</td>';  
@@ -36,6 +41,31 @@ function getCompletedJobs() {
             }
         }
     })
+}
+function copy(id) {
+    $.ajax({
+        url: "repos/copyJob.php",
+        type: "post",
+        data: {
+            "id": id
+        },
+        success: function(results) {
+            getCompletedJobs();
+        }
+    });
+}
+
+function undo(id) {
+    $.ajax({
+        url: "repos/undoJob.php",
+        type: "post",
+        data: {
+            "id": id
+        },
+        success: function(results) {
+            getCompletedJobs();
+        }
+    });
 }
 
 function viewComments(id) {
