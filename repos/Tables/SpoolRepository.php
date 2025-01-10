@@ -24,23 +24,25 @@ class SpoolRepository {
         }
     }
 
-    function addSpool($color, $type) {
-        if (isset($type)) {
-            $sql = "INSERT INTO spools (color, type) VALUES (?, ?)";
+    function addSpool($color, $type, $size) {
+        if (isset($type) && isset($color) && isset($size)) {
+            $sql = "INSERT INTO spools (color, type, size) VALUES (?, ?, ?)";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $color);
             $statement->bindParam(2, $type);
+            $statement->bindParam(3, $size);
             $statement->execute();
         }
     }
 
-    function updateSpool($id, $color, $type) {
-        if (isset($id) && isset($type)) {
-            $sql = "UPDATE spools SET color = ?, type = ? WHERE id = ?";
+    function updateSpool($id, $color, $type, $size) {
+        if (isset($id) && isset($type) && isset($color) && isset($size)) {
+            $sql = "UPDATE spools SET color = ?, type = ?, size = ? WHERE id = ?";
             $statement = $this->conn->prepare($sql);
-            $statement->bindParam(2, $type);
-            $statement->bindParam(3, $id);
             $statement->bindParam(1, $color);
+            $statement->bindParam(2, $type);
+            $statement->bindParam(3, $size);
+            $statement->bindParam(4, $id);
             $statement->execute();
         }
     }
