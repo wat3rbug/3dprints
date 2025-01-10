@@ -65,3 +65,47 @@ function removeSpoolType(id) {
         }
     })
 }
+
+function closeEditSpoolType() {
+    $('.editSpoolType').modal('hide');
+}
+
+function editSpoolType(id) {
+    $.ajax({
+        url: "repos/getSpoolTypeById.php",
+        type: "post",
+        dataType: "json",
+        data: {
+            "id": id
+        },
+        success: function(result) {
+            var name = result[0].spooltype;
+            $('.editSpoolTypeName').val(name);
+            $('.editSpoolTypeId').val(id);
+        }
+    });
+    $('.editSpoolType').modal('show');
+}
+
+function saveSpoolType() {
+    var id = $('.editSpoolTypeId').val();
+    var name = $('.editSpoolTypeName').val();
+    $.ajax({
+        url: "repos/updateSpoolType.php",
+        type: "post",
+        data: {
+            "id": id,
+            "name": name
+        },
+        success: function(results) {
+            cleanEditSpoolType();
+            closeEditSpoolType();
+            listSpoolTypeTable();
+        }
+    })
+}
+
+function cleanEditSpoolType() {
+    $('.editSpoolTypeId').val('');
+    $('.editSpoolTypeName').val('');
+}
