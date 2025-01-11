@@ -57,7 +57,7 @@ class SpoolRepository {
     }
 
     function getAllSpools() {
-        $sql = "SELECT * FROM spools";
+        $sql = "SELECT spools.*, spool_types.spooltype FROM spools JOIN spool_types ON spools.type = spool_types.id";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();

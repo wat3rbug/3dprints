@@ -1,11 +1,32 @@
 $(document).ready(function() {
     
     listSpoolTypeTable();
+    listSpoolTypeInsert();
 
     $('.addSpoolType').on('click', function() {
         addSpoolType();
     })
 });
+
+function listSpoolTypeInsert() {
+    $.ajax({
+        url: "repos/getAllSpoolTypes.php",
+        dataType: "json",
+        success: function(results) {
+            $('.addSpoolTypeSelect').empty();
+            $('.editSpoolTypeSelect').empty();
+            if (results != null && results.length != 0) {
+                for (i = 0; i < results.length; i++) {
+                    var spooltype = results[i];
+                    var option = '<option value="' + spooltype['id'];
+                    option += '">' + spooltype['spooltype'] + '</option>';
+                    $('.addSpoolTypeSelect').append(option);
+                    $('.editSpoolTypeSelect').append(option);
+                }
+            } 
+        }
+    })
+}
 
 function addSpoolType() {
     var type = $('.newStatus').val();
@@ -18,6 +39,7 @@ function addSpoolType() {
         success: function(results) {
             $('.newStatus').val('');
             listSpoolTypeTable();
+            listSpoolTypeInsert();
         }
     })
 }
@@ -62,6 +84,7 @@ function removeSpoolType(id) {
         },
         success: function(results) {
             listSpoolTypeTable();
+            listSpoolTypeInsert();
         }
     })
 }
@@ -101,6 +124,7 @@ function saveSpoolType() {
             cleanEditSpoolType();
             closeEditSpoolType();
             listSpoolTypeTable();
+            listSpoolTypeInsert();
         }
     })
 }
