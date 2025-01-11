@@ -3,8 +3,81 @@ $(document).ready(function() {
 
     $('.addSpool').on('click', function() {
         addSpool();
-    })
+    });
+
+    getSpoolColorCounts();
+    getSpoolSizeCounts();
+    getSpoolTypeCounts();
 });
+
+function getSpoolColorCounts() {
+    $.ajax({
+        url: "repos/getSpoolColorCounts.php",
+        dataType: "json",
+        success: function(results) {
+            var total = 0;
+            for(i = 0; i < results.length; i++) {
+                total += results[i]['count'];
+            }
+            $('.spoolcolor').empty();
+            for (i = 0; i < results.length; i++) {
+                var line = results[i];
+                var percent = (line['count'] / total * 100);
+                var bar = line['color'] + '<div class="progress">';
+                bar += '<div class="progress-bar bg-info" role="progressbar" ';
+                bar += 'style="width: ' + percent + '%" aria-valuenow="' + percent + '" ';
+                bar += 'aria-valuemin="0" aria-valuemax="100"></div></div>';
+                $('.spoolcolor').append(bar);
+            }
+        }
+    })
+}
+
+function getSpoolSizeCounts() {
+    $.ajax({
+        url: "repos/getSpoolSizeCounts.php",
+        dataType: "json",
+        success: function(results) {
+            var total = 0;
+            for(i = 0; i < results.length; i++) {
+                total += results[i]['count'];
+            }
+            $('.spoolsize').empty();
+            for (i = 0; i < results.length; i++) {
+                var line = results[i];
+                var percent = (line['count'] / total * 100);
+                var bar = line['size'] + '<div class="progress">';
+                bar += '<div class="progress-bar bg-info" role="progressbar" ';
+                bar += 'style="width: ' + percent + '%" aria-valuenow="' + percent + '" ';
+                bar += 'aria-valuemin="0" aria-valuemax="100"></div></div>';
+                $('.spoolsize').append(bar);
+            }
+        }
+    })
+}
+
+function getSpoolTypeCounts() {
+    $.ajax({
+        url: "repos/getSpoolTypeCounts.php",
+        dataType: "json",
+        success: function(results) {
+            var total = 0;
+            for(i = 0; i < results.length; i++) {
+                total += results[i]['count'];
+            }
+            $('.spooltype').empty();
+            for (i = 0; i < results.length; i++) {
+                var line = results[i];
+                var percent = (line['count'] / total * 100);
+                var bar = line['spooltype'] + '<div class="progress">';
+                bar += '<div class="progress-bar bg-info" role="progressbar" ';
+                bar += 'style="width: ' + percent + '%" aria-valuenow="' + percent + '" ';
+                bar += 'aria-valuemin="0" aria-valuemax="100"></div></div>';
+                $('.spooltype').append(bar);
+            }
+        }
+    })
+}
 
 function editSpool(id) {
     $.ajax({
@@ -72,7 +145,7 @@ function listAllSpools() {
 }
 
 function getActionBox(id) {
-    var box = '<td><button type="button" class="btn btn-link" onclick="removeSpool(';
+    var box = '<td style="width: 65px"><button type="button" class="btn btn-link" onclick="removeSpool(';
     box += id + ')"><span class="glyphicon glyphicon-remove"></span></button>';
     box += '<button type="button" class="btn btn-link" onclick="editSpool(' + id + ')" >';
     box += '<span class="glyphicon glyphicon-pencil"></span></td>';

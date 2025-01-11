@@ -80,4 +80,36 @@ class SpoolRepository {
             return $output;
         }
     }
+
+    function getSpoolColorCounts() {
+        $sql = "SELECT count(*) as count, color FROM spools GROUP BY color";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
+
+    function getSpoolSizeCounts() {
+        $sql = "SELECT count(*) as count, size FROM spools GROUP BY size";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
+    function getSpoolTypeCounts() {
+        $sql = "SELECT count(*) AS count, spooltype FROM spools JOIN spool_types ON spools.type = spool_types.id GROUP BY spool_types.spooltype";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
 }

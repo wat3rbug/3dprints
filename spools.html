@@ -10,6 +10,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/spools.js"></script>
     <script src="js/spooltypes.js"></script>
+    <script src="js/nav.js"></script>
 </head>
 <body>
 <div class="row">&nbsp;</div>
@@ -40,76 +41,97 @@
     </div>
 </div>
 <div class="row">&nbsp;</div>
+<div class="row">&nbsp;</div>
 <div class="row">
     <div class="col-sm-1">&nbsp;</div>
-    <div class="col-sm-5">
-        <div class="card">
-            <div class="card-header">Spool History By Color</div>
-            <div class="card-content">
-
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-5">
-        <div class="card">
-            <div class="card-header">Spool History By Size</div>
-            <div class="card-content">
-                
-            </div>
-        </div>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="row"><hr /></div>
-    <div class="row">
-        <div class="col-sm-1">&nbsp;</div>
-        <div class="col-sm-7">
-            <p class="text-center">Purchased Spools</p>
-            <table class="table table-striped spoollisting">
-                <thead>
-                    <tr>
-                        <th class="info">Action</th>
-                        <th class="info">Color</th>
-                        <th class="info">Type</th>
-                        <th class="info">Size(kg)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <button type="submit" class="btn btn-success addSpool">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </button>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control addSpoolColor" />
-                        </td>
-                        <td>
-                            <select class="form-control addSpoolTypeSelect" ></select>
-                        </td>
-                        <td>
-                            <input type="number" class="form-control addSpoolSize" />
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-        <div class="col-sm-3">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">
-                    Spool Types
-                </div>
-                <div class="panel-body">
-                    <ul class="list-group spooltypegroup">
-                    </ul>
-                    <div class="input-group">
-                        <span class="input-group-addon btn btn-success addSpoolType">
+    <div class="col-sm-4">
+        <p class="text-center">Purchased Spools</p>
+        <table class="table table-striped spoollisting">
+            <thead>
+                <tr>
+                    <th class="info" style="width:85px">Action</th>
+                    <th class="info">Color</th>
+                    <th class="info">Type</th>
+                    <th class="info">Size(kg)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <button type="submit" class="btn btn-success addSpool">
                             <span class="glyphicon glyphicon-plus"></span>
-                        </span>
-                        <input type="text" class="form-control newStatus" aria-describedby="plusshow">
+                        </button>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control addSpoolColor" />
+                    </td>
+                    <td>
+                        <select class="form-control addSpoolTypeSelect" ></select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control addSpoolSize" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                Spool Types
+            </div>
+            <div class="panel-body">
+                <ul class="list-group spooltypegroup">
+                </ul>
+                <div class="input-group">
+                    <span class="input-group-addon btn btn-success addSpoolType">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </span>
+                    <input type="text" class="form-control newStatus" aria-describedby="plusshow">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title text-center">
+                        Spool History By Color</div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body spoolcolor"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title text-center">
+                        Spool History By Type
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body spooltype">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title text-center">
+                        Spool History By Size
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body spoolsize">
                     </div>
                 </div>
             </div>
