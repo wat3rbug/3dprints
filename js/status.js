@@ -29,7 +29,7 @@ function listStatusTable() {
 function addStatus() {
     var name = $('.newStatus').val();
     $.ajax({
-        url: "repos/createStatus.php",
+        url: "repos/create/createStatus.php",
         type: "post",
         data: {
             "name": name
@@ -71,7 +71,7 @@ function getActionBox(id) {
 
 function removeStatus(id) {
     $.ajax({
-        url: "repos/removeStatusById.php",
+        url: "repos/delete/deleteStatus.php",
         type: "post",
         data: {
             "id": id
@@ -108,7 +108,7 @@ function saveStatus() {
     var id = $('.editStatId').val();
     var name = $('.editStatName').val();
     $.ajax({
-        url: "repos/updateStatus.php",
+        url: "repos/update/updateStatus.php",
         type: "post",
         data: {
             "id": id,

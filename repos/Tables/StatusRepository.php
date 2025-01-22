@@ -69,21 +69,21 @@ class StatusRepository {
         }
     }
 
-    function deleteStatus($id) {
-        if (isset($id) && $id > 0) {
-            $sql = "DELETE FROM status WHERE id = ?";
-            $statement = $this->conn->prepare($sql);
-            $statement->bindParam(1, $id);
-            $statement->execute();
-        }
-    }
-
     function updateStatus($status, $id) {
         if (isset($id) && $id > 0 && isset($status)) {
             $sql = "UPDATE status SET status = ? WHERE id = ?";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $status);
             $statement->bindParam(2, $id);
+            $statement->execute();
+        }
+    }
+
+    function deleteStatus($id) {
+        if (isset($id) && $id > 0) {
+            $sql = "DELETE FROM status WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
             $statement->execute();
         }
     }

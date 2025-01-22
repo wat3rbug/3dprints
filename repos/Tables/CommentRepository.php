@@ -38,7 +38,7 @@ class CommentRepository {
         }
     }
 
-    function addCommentToJob($comment, $jobid, $author) {
+    function createCommentToJob($comment, $jobid, $author) {
         if (isset($jobid) && isset($comment) && isset($author)) {
             $sql = "INSERT INTO comments (comment, jobid, originator) VALUES (?, ?, ?)";
             $statement = $this->conn->prepare($sql);

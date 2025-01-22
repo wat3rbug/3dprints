@@ -9,7 +9,7 @@ function addComment() {
     var comment = $('.addCommentBox').val();
     var author = $('.addAuthor').val();
     $.ajax({
-        url: "repos/addComment.php",
+        url: "repos/create/createComment.php",
         type: "post",
         data: {
             "job": job,

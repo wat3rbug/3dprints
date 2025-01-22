@@ -104,7 +104,7 @@ function addSpool() {
     var type = $('.addSpoolTypeSelect').val();
     var size = $('.addSpoolSize').val();
     $.ajax({
-        url: "repos/addSpool.php",
+        url: "repos/create/createSpool.php",
         type: "post",
         data: {
             "color": color,
@@ -154,7 +154,7 @@ function getActionBox(id) {
 
 function removeSpool(id) {
     $.ajax({
-        url: "repos/removeSpoolById.php",
+        url: "repos/delete/deleteSpool.php",
         type: "post",
         data: {
             "id": id
@@ -171,7 +171,7 @@ function saveSpool() {
     var type = $('.editSpoolTypeSelect').val();
     var size = $('.editSpoolSize').val();
     $.ajax({
-        url: "repos/updateSpool.php",
+        url: "repos/update/updateSpool.php",
         type: "post",
         data: {
             "id": id,

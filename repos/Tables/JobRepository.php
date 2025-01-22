@@ -100,7 +100,7 @@ class JobRepository {
         }
     }
 
-    function addJob($name, $photo, $url) {
+    function createJob($name, $photo, $url) {
         if (isset($name)) {
             $sql = "INSERT INTO jobs (url, name, photo, status) VALUES (?, ?, ?, 16)";
             $statement = $this->conn->prepare($sql);

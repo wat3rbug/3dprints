@@ -43,7 +43,7 @@ function addJob() {
     var photo = $('.addJobPhoto').val();
     var url = $('.addJobURL').val();
     $.ajax({
-        url: "repos/addJob.php",
+        url: "repos/create/createJob.php",
         type: "post",
         data: {
             "name": name,
@@ -70,7 +70,7 @@ function saveJobStatus() {
     var joburl = $('.editJobURL').val();
     var status = $('.editJobStatus').val();
     $.ajax({
-        url: "repos/updateJob.php",
+        url: "repos/update/updateJob.php",
         type: "post",
         data: {
             "id": id,
@@ -103,7 +103,7 @@ function completeJob(id) {
 
 function removeJob(id) {
     $.ajax({
-        url: "repos/removeJobById.php",
+        url: "repos/delete/deleteJob.php",
         type: "post",
         data: {
             "id": id

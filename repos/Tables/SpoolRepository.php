@@ -24,7 +24,7 @@ class SpoolRepository {
         }
     }
 
-    function addSpool($color, $type, $size) {
+    function createSpool($color, $type, $size) {
         if (isset($type) && isset($color) && isset($size)) {
             $sql = "INSERT INTO spools (color, type, size) VALUES (?, ?, ?)";
             $statement = $this->conn->prepare($sql);

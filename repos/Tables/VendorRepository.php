@@ -1,5 +1,6 @@
 <?php
-class SpoolTypeRepository {
+
+class VendorRepository {
 
     private $conn;
 
@@ -24,48 +25,19 @@ class SpoolTypeRepository {
         }
     }
 
-    function createSpoolType($type) {
-        if (isset($type)) {
-            $sql = "INSERT INTO spool_types (spooltype) VALUES (?)";
+    function createVendor($name, $url) {
+        if (isset($name)) {
+            $sql = "INSERT INTO vendors (name, url) VALUES(?, ?)";
             $statement = $this->conn->prepare($sql);
-            $statement->bindParam(1, $type);
+            $statement->bindParam(1, $name);
+            $statement->bindParam(2, $url);
             $statement->execute();
         }
     }
 
-    function updateSpoolType($id, $type) {
-        if (isset($id) && isset($type)) {
-            $sql = "UPDATE spool_types SET spooltype = ? WHERE id = ?";
-            $statement = $this->conn->prepare($sql);
-            $statement->bindParam(1, $type);
-            $statement->bindParam(2, $id);
-            $statement->execute();
-        }
-    }
-
-    function deleteSpoolType($id) {
+    function getVendorById($id) {
         if (isset($id)) {
-            $sql = "DELETE FROM spool_types WHERE id= ?";
-            $statement = $this->conn->prepare($sql);
-            $statement->bindParam(1, $id);
-            $statement->execute();
-        }
-    }
-
-    function getAllSpoolTypes() {
-        $sql = "SELECT * FROM spool_types";
-        $statement = $this->conn->prepare($sql);
-        $statement->execute();
-        $output = array();
-        while ($row = $statement->fetch()) {
-            $output[] = $row;
-        }
-        return $output;
-    }
-
-    function getSpoolTypeById($id) {
-        if (isset($id)) {
-            $sql = "SELECT * FROM spool_types WHERE id = ?";
+            $sql = "SELECT * FROM vendors WHERE id = ?";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $id);
             $statement->execute();
@@ -75,5 +47,36 @@ class SpoolTypeRepository {
             }
             return $output;
         }
+    }
+
+    function updateVendor($name, $url, $id) {
+        if (isset($id) && $id > 0 && isset($name)) {
+            $sql = "UPDATE vendors SET name = ?, url = ? WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $name);
+            $statement->bindParam(2, $url);
+            $statement->bindParam(3, $id);
+            $statement->execute();
+        }
+    }
+
+    function deleteVendor($id) {
+        if (isset($id) && $id > 0) {
+            $sql = "DELETE FROM vendors WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
+            $statement->execute();
+        }
+    }
+
+    function getAllVendors() {
+        $sql = "SELECT * from vendors";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+            $output = array();
+            while($row = $statement->fetch()) {
+                $output[] = $row;
+            }
+            return $output;
     }
 }
