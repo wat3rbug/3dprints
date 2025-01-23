@@ -1,6 +1,6 @@
 <?php
 require "Tables/StatusRepository.php";
-$status = $_POST["name"];
+$status = $_POST['name'];
 
 // $status = "to hell and back";
 

@@ -1,5 +1,10 @@
 $(document).ready(function() {
     reloadTables();
+
+    $('.orderBtn').on('click', function(){
+        cleanOrderModal();
+        $('.addOrder').modal('show');
+    });
 });
 
 /**
@@ -18,7 +23,7 @@ function getOrderDetails(id) {
         success: function(results) {
             $('.orderdetails tbody').remove();
             if (results == null || results.length == 0) {
-                var nodata = "<tr><td colspan='3' class='text-center'>No Details</td></tr>";
+                var nodata = "<tr><td colspan='5' class='text-center'>No Details</td></tr>";
                 $('.orderdetails tbody').append(nodata); 
             } else {
                 var data = getDetailRow(results[0]);          
@@ -57,5 +62,65 @@ function updateOrder() {
 
 function reloadTables() {
     loadVendorTable();
+    loadOrderTable();
     // probably need selector loads here
+}
+
+function loadOrderTable() {
+    $.ajax({
+        url: "repos/getAllOrders.php",
+        dataType: "json",
+        success: function(results) {
+            $('.orderlisting tbody').empty();
+            if (results == null || results.length == 0) {
+                var nodata = '<tr><td class="text-center" colspan="6">';
+                nodata += 'No orders</td></tr>';
+                $('.orderlisting tbody').append(nodata);
+            } else {
+                for (i = 0; i < results.length; i++) {
+                    var result = results[i];
+                    var row = '<tr><td>' + getOrderActionBtns(result) + '</td>';
+                    row += '<td>' + result['vendor'] + '</td>';
+                    row += '<td>' + result['ordered'] + '</td>';
+                    row += '<td>' + result['shipped'] + '</td>';
+                    row += '<td>' + result['received'] + '</td>';
+                    $('.orderlisting tbody').append(row);
+                }
+            }
+        }
+    });
+}
+
+function getOrderActionBtns(dataset) {
+    var cell = '<button class="btn btn-link" title="remove order"';
+    cell += ' onclick="removeOrder(' + dataset['id'] + ')">';
+    cell += '<span class="glyphicon glyphicon-remove"></span>';
+    cell += '</button><button type="button" class="btn btn-link"';
+    cell += 'title="edit order" onclick="editOrder(' + dataset['id'];
+    cell += ')"><span class="glyphicon glyphicon-pencil"></span>';
+    cell += '</button>';
+    return cell;
+}
+
+function cleanOrderModal() {
+
+}
+
+function editOrder(id) {
+
+}
+
+function removeOrder(id) {
+    $.ajax({
+        url: "repos/deleteOrder.php",
+        type: "post",
+        data: {
+            "id": id
+        },
+        success: function(results) {
+            cleanOrderModal();
+            reloadTables();
+            $('.addOrder').modal('hide');
+        }
+    });
 }

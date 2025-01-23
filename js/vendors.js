@@ -11,7 +11,7 @@ function addVendor() {
     $('.addVendorName').val('');
     $('.addVendorUrl').val('');
     $.ajax({
-        url: "repos/create/createVendor.php",
+        url: "repos/createVendor.php",
         type: "post",
         data: {
             "name": name,
@@ -37,7 +37,8 @@ function loadVendorTable() {
                 for (i = 0; i < results.length; i++) {
                     var row = '<tr><td>' + getVendorActionBtns(results[i]['id']);
                     row += '</td><td>' + results[i]['name'] + '</td>';
-                    row += '<td>' + results[i]['url'] + '</td></tr>';
+                    row += '<td><a target="_blank" title="' + results[i]['name'];
+                    row += '" href="' + results[i]['url'] + '">' + results[i]['name'] + '</a></td></tr>';
                     $('.vendortable').append(row);
                 }
             }
@@ -47,7 +48,7 @@ function loadVendorTable() {
 
 function removeVendor(id) {
     $.ajax({
-        url: "repos/delete/deleteVendor.php",
+        url: "repos/deleteVendor.php",
         type: "post",
         data: {
             "id": id
@@ -65,7 +66,7 @@ function updateVendor() {
     var url = $('.editVendorUrl').val();
     cleanEditVendorModal();
     $.ajax({
-        url: "repos/update/updateVendor.php",
+        url: "repos/updateVendor.php",
         type: "post",
         data: {
             "id": id,

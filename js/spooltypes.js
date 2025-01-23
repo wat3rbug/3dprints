@@ -31,7 +31,7 @@ function listSpoolTypeInsert() {
 function addSpoolType() {
     var type = $('.newStatus').val();
     $.ajax({
-        url: "repos/create/createSpoolType.php",
+        url: "repos/createSpoolType.php",
         type: "post",
         data: {
             "type": type
@@ -77,7 +77,7 @@ function lineitem(item) {
 
 function removeSpoolType(id) {
     $.ajax({
-        url: "repos/delete/deleteSpoolType.php",
+        url: "repos/deleteSpoolType.php",
         type: "post",
         data: {
             "id": id
@@ -114,7 +114,7 @@ function saveSpoolType() {
     var id = $('.editSpoolTypeId').val();
     var name = $('.editSpoolTypeName').val();
     $.ajax({
-        url: "repos/update/updateSpoolType.php",
+        url: "repos/updateSpoolType.php",
         type: "post",
         data: {
             "id": id,
