@@ -1,5 +1,5 @@
 <?php
-require "Tables/JobRepository.php";
+require "../Tables/JobRepository.php";
 
 $name = $_POST["name"];
 $photo = $_POST["photo"];

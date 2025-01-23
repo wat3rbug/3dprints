@@ -1,5 +1,5 @@
 <?php
-require "Tables/StatusRepository.php";
+require "../Tables/StatusRepository.php";
 $id = $_POST["id"];
 
 if (isset($id) && !empty($id)) {

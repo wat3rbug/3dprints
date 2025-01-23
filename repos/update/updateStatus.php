@@ -1,5 +1,5 @@
 <?php
-require "Tables/StatusRepository.php";
+require "../Tables/StatusRepository.php";
 $id = $_POST["id"];
 $status = $_POST["name"];
 // $id = "10";

@@ -1,5 +1,5 @@
 <?php 
-require "Tables/CommentRepository.php";
+require "../Tables/CommentRepository.php";
 
 $author = $_POST["author"];
 $comment = $_POST['comment'];

@@ -1,5 +1,5 @@
 <?php
-require "Tables/SpoolTypeRepository.php";
+require "../Tables/SpoolTypeRepository.php";
 
 $type = $_POST['type'];
 if (isset($type)) {

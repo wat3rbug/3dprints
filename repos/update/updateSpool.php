@@ -1,5 +1,5 @@
 <?php
-require "Tables/SpoolRepository.php";
+require "../Tables/SpoolRepository.php";
 
 $id = $_POST["id"];
 $type = $_POST["type"];

@@ -1,5 +1,5 @@
 <?php
-require "Tables/SpoolRepository.php";
+require "../Tables/SpoolRepository.php";
 
 $color = $_POST['color'];
 $type = $_POST['type'];

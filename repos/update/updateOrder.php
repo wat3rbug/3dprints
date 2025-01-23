@@ -1,5 +1,5 @@
 <?php
-require "Tables/OrderRepository.php";
+require "../Tables/OrderRepository.php";
 $id = $_POST["id"];
 $vendor = $_POST["vendor"];
 $spool = $_POST["spool"];

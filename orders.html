@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<head>
+    <meta charsset="utf-8">
+    <title>3D Print Listings - Orders </title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/orders.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/vendors.js"></script>
+</head>
+<body>
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-sm-1">&nbsp;</div>
+    <div class="col-sm-10 text-center">
+        <div class="jumbotron">
+            <h1>3D Print Listings</h1>
+            <p>The look at purchasing trends</p>
+        </div>
+    </div>
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-lg-1">&nbsp;</div>
+    <div class="col-lg-10" role="navigation">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" id="active-tab" data-toggle="tab" role="tab" aria-controls="active" href="index.html">Active Print Ideas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="complete-tab" data-toggle="tab" role="tab" aria-control="completed" href="completed.html">Completed Prints</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="spool-tab" data-toggle="tab" role="tab" aria-control="spool" href="spools.html">Spool History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" id="order-tab" data-toggle="tab" role="tab" aria-control="order" href="orders.html">Orders</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-sm-1">&nbsp;</div>
+    <div class="col-sm-6">
+        <p class="text-center">Purchased Spools</p>
+        <table class="table table-striped spoollisting">
+            <thead>
+                <tr>
+                    <th class="info" style="width:85px">Action</th>
+                    <th class="info"></th>
+                    <th class="info">Type</th>
+                    <th class="info">Size(kg)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <button type="submit" class="btn btn-success addSpool">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control addSpoolColor" />
+                    </td>
+                    <td>
+                        <select class="form-control addSpoolTypeSelect" ></select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control addSpoolSize" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                Vendors
+            </div>
+            <div class="panel-body">
+               <table class="table table-striped vendortable">
+                <thead>
+                    <tr>
+                        <th class="info">Action</th>
+                        <th class="info">Name</th>
+                        <th class="info">URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr></tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><button type="button" title="Add a vendor" class="btn btn-success addVendorBtn">
+                                <span class="glyphicon glyphicon-plus"></span>&nbsp;Vendor
+                            </button>
+                        </td>
+                        <td><input type="text" class="form-control addVendorName" /></td>
+                        <td><input type="text" class="form-control addVendorUrl" /></td>
+                    </tr>
+                </tfoot>
+               </table>
+            </div>
+        </div>
+    </div>
+</div>
+  
+<!-- edit order modal section -->
+
+<div class="modal editOrder" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Edit Order</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-center">
+                        Order Details
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-10 text-center">
+                        <table class="table table-striped orderdetails">
+                            <thead>
+                                <tr>
+                                    <th class="info">Color</th>
+                                    <th class="info">Type</th>
+                                    <th class="info">Size</th>
+                                </tr>
+                            </thead>
+                            <tbody><tr></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 text-right"><b>Ordered</b></div>
+                    <div class="col-sm-4 text-left">
+                        <input type="hidden" class="editOrderId" />
+                        <input type="date" class="form-control editOrdered" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-5 text-right"><b>Shipped</b></div>
+                    <div class="col-sm-4 text-left">
+                        <input type="date" class="form-control editShipped" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-5 text-right"><b>Received</b></div>
+                    <div class="col-sm-4 text-left">
+                        <input type="date" class="form-control editReceived" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" title="Update the order"
+                    onclick="updateOrder()">
+                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    &nbsp;Update
+                </button>&nbsp;
+                <button type="button" class="btn btn-default" title="cancel changes" onclick="closeEditSpoolType()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                &nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add Vendor modal section -->
+
+ <div class="modal addVendor" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Add Order</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        Name
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control addVendorName" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        URL
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <input type="text" class="form-control addVendorUrl">
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" title="Add the vendor" 
+                onclick="addVendor()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                &nbsp;Order</button>&nbsp;
+                <button type="button" class="btn btn-default" title="cancel" onclick="closeAddVendor()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                &nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+ </div>
+
+ <!-- edit order modal section -->
+
+<div class="modal editOrder" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Edit Order</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row text-center">
+                        Order Details
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-10 text-center">
+                        <table class="table table-striped orderdetails">
+                            <thead>
+                                <tr>
+                                    <th class="info">Color</th>
+                                    <th class="info">Type</th>
+                                    <th class="info">Size</th>
+                                </tr>
+                            </thead>
+                            <tbody><tr></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 text-right"><b>Ordered</b></div>
+                    <div class="col-sm-4 text-left">
+                        <input type="hidden" class="editOrderId" />
+                        <input type="date" class="form-control editOrdered" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-5 text-right"><b>Shipped</b></div>
+                    <div class="col-sm-4 text-left">
+                        <input type="date" class="form-control editShipped" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-5 text-right"><b>Received</b></div>
+                    <div class="col-sm-4 text-left">
+                        <input type="date" class="form-control editReceived" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" title="Update the order"
+                    onclick="updateOrder()">
+                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    &nbsp;Update
+                </button>&nbsp;
+                <button type="button" class="btn btn-default" title="cancel changes" onclick="closeEditSpoolType()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                &nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- edit Vendor modal section -->
+
+ <div class="modal editVendor" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Edit Vendor</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        Name
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <input type="hidden" class="editVendorId" />
+                        <input type="text" class="form-control editVendorName" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        URL
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <input type="text" class="form-control editVendorUrl">
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" title="Update the vendor" 
+                onclick="updateVendor()">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                &nbsp;Update</button>&nbsp;
+                <button type="button" class="btn btn-default" title="cancel" onclick="closeEditVendor()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                &nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+ </div>
+</body>
+</html>
