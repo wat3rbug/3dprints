@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    loadOrderVendorSelectors();
     $('.addVendorBtn').on('click', function() {
         addVendor();
     });
@@ -117,5 +118,20 @@ function cleanEditVendorModal() {
     $('.editVendorName').val('');
     $('.editVendorUrl').val('');
 }
-
-
+function loadOrderVendorSelectors() {
+    $.ajax({
+        url: "repos/getAllVendors.php",
+        dataType: "json",
+        success: function(results) {
+            if (results != null && results.length > 0) {
+                $('.addOrderVendor').empty();
+                for (i = 0; i < results.length; i++) {
+                    var vendor = results[i];
+                    var option = '<option value="' + vendor['id'] + '">';
+                    option += vendor['name'] + '</option>';
+                    $('.addOrderVendor').append(option); 
+                }
+            }
+        }
+    })
+}

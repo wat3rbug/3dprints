@@ -57,7 +57,7 @@ class SpoolRepository {
     }
 
     function getAllSpools() {
-        $sql = "SELECT spools.*, spool_types.spooltype FROM spools JOIN spool_types ON spools.type = spool_types.id";
+        $sql = "SELECT spools.*, spool_types.spooltype AS spooltype FROM spools JOIN spool_types ON spools.type = spool_types.id JOIN orders on spools.id = orders.spoolid WHERE orders.shipped IS NOT NULL";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
@@ -82,7 +82,7 @@ class SpoolRepository {
     }
 
     function getSpoolColorCounts() {
-        $sql = "SELECT count(*) as count, color FROM spools GROUP BY color";
+        $sql = "SELECT count(*) as count, color FROM spools JOIN orders ON spools.id = orders.spoolid WHERE orders.received IS NOT NULL GROUP BY color";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
@@ -103,7 +103,18 @@ class SpoolRepository {
         return $output;
     }
     function getSpoolTypeCounts() {
-        $sql = "SELECT count(*) AS count, spooltype FROM spools JOIN spool_types ON spools.type = spool_types.id GROUP BY spool_types.spooltype";
+        $sql = "SELECT count(*) AS count, spooltype FROM spools JOIN spool_types ON spools.type = spool_types.id JOIN orders ON spools.id = orders.spoolid WHERE orders.received IS NOT null GROUP BY spool_types.spooltype";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
+
+    function getLastSpool() {
+        $sql = "SELECT * FROM spools ORDER BY id DESC LIMIT 1";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();

@@ -27,6 +27,7 @@ class OrderRepository {
     function createOrder($spool, $vendor) {
         if (isset($spool) && isset($vendor)) {
             $sql = "INSERT INTO orders (spoolid, vendorid) VALUES(?, ?)";
+            $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $spool);
             $statement->bindParam(2, $vendor);
             $statement->execute();
@@ -45,7 +46,7 @@ class OrderRepository {
     }
 
     function getAllOrders() {
-        $sql = "SELECT orders.*, vendors.name AS vendor, vendors.url AS url from orders JOIN vendors on vendorid = vendors.id ORDER BY received DESC";
+        $sql = "SELECT spools.id, ordered, shipped, received, name AS vendor, color, spooltype,size from orders JOIN vendors on vendorid = vendors.id join spools ON orders.spoolid = spools.id JOIN spool_types ON spool_types.id = spools.type ORDER BY id DESC;";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
@@ -57,7 +58,7 @@ class OrderRepository {
 
     function orderShipped($id) {
         if (isset($id)) {
-            $sql = "UPDATE orders SET = shipped = curtime() WHERE id= ?";
+            $sql = "UPDATE orders SET shipped = curtime() WHERE id= ?";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $id);
             $statement->execute();
@@ -65,7 +66,7 @@ class OrderRepository {
     }
 
     function orderReceived($id) {
-        $sql = "UPDATE orders SET = received = curtime() WHERE id= ?";
+        $sql = "UPDATE orders SET received = curtime() WHERE id= ?";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $id);
             $statement->execute();

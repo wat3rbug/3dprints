@@ -108,7 +108,7 @@
 
 <!-- add order modal section -->
 
-<div class="modal addOrder" tabindex="-1" role="dialog">
+<!-- <div class="modal addOrder" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -119,45 +119,16 @@
             </div>
             <div class="modal-body">
                 <div class="row text-center">
-                        Order Details
-                </div>
+                        Order Details -->
+                <!-- </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
-                    <div class="col-sm-1">&nbsp;</div>
-                    <div class="col-sm-10 text-center">
-                        <table class="table table-striped orderdetails">
-                            <thead>
-                                <tr>
-                                    <th class="info">Color</th>
-                                    <th class="info">Type</th>
-                                    <th class="info">Size</th>
-                                </tr>
-                            </thead>
-                            <tbody><tr></tr></tbody>
-                        </table>
+                    <div class="col-sm-5 text-right"><b>Color</b></div>
+                    <div class="col-sm-4 text-left">              
+                        <input type="text" class="form-control addOrderColor" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-5 text-right"><b>Ordered</b></div>
-                    <div class="col-sm-4 text-left">
-                        <input type="hidden" class="editOrderId" />
-                        <input type="date" class="form-control editOrdered" />
-                    </div>
-                </div>
-                <div class="row">&nbsp;</div>
-                <div class="row">
-                    <div class="col-sm-5 text-right"><b>Shipped</b></div>
-                    <div class="col-sm-4 text-left">
-                        <input type="date" class="form-control editShipped" />
-                    </div>
-                </div>
-                <div class="row">&nbsp;</div>
-                <div class="row">
-                    <div class="col-sm-5 text-right"><b>Received</b></div>
-                    <div class="col-sm-4 text-left">
-                        <input type="date" class="form-control editReceived" />
-                    </div>
-                </div>
+
+
                 <div class="row">&nbsp;</div>
             </div>
             <div class="modal-footer">
@@ -172,14 +143,14 @@
             </div>
         </div>
     </div>
-</div>
-<!-- edit order modal section -->
+</div> -->
+<!-- add order modal section -->
 
-<div class="modal editOrder" tabindex="-1" role="dialog">
+<div class="modal addOrder" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-center">Edit Order</h4>
+                <h4 class="modal-title text-center">Add Order</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -188,52 +159,50 @@
                 <div class="row text-center">
                         Order Details
                 </div>
+                <div class="row">
+                    <div class="col-sm-5 text-right">
+                        <b>Color</b>
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control addOrderColor" />
+                    </div> 
+                </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
-                    <div class="col-sm-1">&nbsp;</div>
-                    <div class="col-sm-10 text-center">
-                        <table class="table table-striped orderdetails">
-                            <thead>
-                                <tr>
-                                    <th class="info">Color</th>
-                                    <th class="info">Type</th>
-                                    <th class="info">Size</th>
-                                </tr>
-                            </thead>
-                            <tbody><tr></tr></tbody>
-                        </table>
+                    <div class="col-sm-4 text-right">
+                        <b>Size</b>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-5 text-right"><b>Ordered</b></div>
-                    <div class="col-sm-4 text-left">
-                        <input type="hidden" class="editOrderId" />
-                        <input type="date" class="form-control editOrdered" />
+                    <div class="col-sm-5 text-left">
+                        <input type="number" class="form-control addOrderSize" placeholder="weight in lbs" />
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
-                    <div class="col-sm-5 text-right"><b>Shipped</b></div>
-                    <div class="col-sm-4 text-left">
-                        <input type="date" class="form-control editShipped" />
+                    <div class="col-sm-4 text-right">
+                        <b>Type</b>
+                    </div>
+                    <div class="col-sm-5 text-left">
+                        <select class="form-control addOrderType"></select>
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
-                    <div class="col-sm-5 text-right"><b>Received</b></div>
+                    <div class="col-sm-5 text-right">
+                        <b>Vendor</b>
+                    </div>
                     <div class="col-sm-4 text-left">
-                        <input type="date" class="form-control editReceived" />
+                        <select class="form-control addOrderVendor"></select>
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning" title="Update the order"
-                    onclick="updateOrder()">
-                    <span class="glyphicon glyphicon-floppy-saved"></span>
-                    &nbsp;Update
+                <button type="button" class="btn btn-success" title="create the order"
+                    onclick="createOrder()">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    &nbsp;Add
                 </button>&nbsp;
-                <button type="button" class="btn btn-default" title="cancel changes" onclick="closeEditSpoolType()">
+                <button type="button" class="btn btn-default" title="cancel changes" onclick="closeAddOrder()">
                     <span class="glyphicon glyphicon-ban-circle"></span>
                 &nbsp;Cancel</button>
             </div>

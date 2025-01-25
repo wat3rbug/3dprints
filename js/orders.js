@@ -60,10 +60,33 @@ function updateOrder() {
     var vendor = $('.editVendor').val();
 }
 
+function createOrder() {
+    var color = $('.addOrderColor').val();
+    var vendor = $('.addOrderVendor').val();
+    var spool = $('.addOrderType').val();
+    var size = $('.addOrderSize').val();
+    $.ajax({
+        url: "repos/createOrder.php",
+        type: "post",
+        data: {
+            "color": color,
+            "vendor": vendor,
+            "type": spool,
+            "size": size
+            
+        },
+        success: function(results) {
+            cleanOrderModal();
+            reloadTables();
+            $('.addOrder').modal('hide');
+        }
+    });
+}
+
 function reloadTables() {
     loadVendorTable();
     loadOrderTable();
-    // probably need selector loads here
+    loadOrderSelectors();
 }
 
 function loadOrderTable() {
@@ -80,15 +103,27 @@ function loadOrderTable() {
                 for (i = 0; i < results.length; i++) {
                     var result = results[i];
                     var row = '<tr><td>' + getOrderActionBtns(result) + '</td>';
-                    row += '<td>' + result['vendor'] + '</td>';
-                    row += '<td>' + result['ordered'] + '</td>';
-                    row += '<td>' + result['shipped'] + '</td>';
-                    row += '<td>' + result['received'] + '</td>';
+                    row += '<td>' + getSpoolDetails(result) + '</td>';
+                    row += '<td>' + formatNullableDate(result['vendor']) + '</td>';
+                    row += '<td>' + formatNullableDate(result['ordered']) + '</td>';
+                    row += '<td>' + formatNullableDate(result['shipped']) + '</td>';
+                    row += '<td>' + formatNullableDate(result['received']) + '</td>';
                     $('.orderlisting tbody').append(row);
                 }
             }
         }
     });
+}
+
+function getSpoolDetails(order) {
+    var detail = order['color'] + ' - ' + order['spooltype'];
+    return detail;
+
+}
+
+function formatNullableDate(current) {
+    if (current) return current;
+    else return "N/A";
 }
 
 function getOrderActionBtns(dataset) {
@@ -98,16 +133,81 @@ function getOrderActionBtns(dataset) {
     cell += '</button><button type="button" class="btn btn-link"';
     cell += 'title="edit order" onclick="editOrder(' + dataset['id'];
     cell += ')"><span class="glyphicon glyphicon-pencil"></span>';
-    cell += '</button>';
+    cell += '</button>' + getShipBtn(dataset) + getRcvBtn(dataset);
     return cell;
 }
 
-function cleanOrderModal() {
+function getShipBtn(dataset) {
+    var btn = '<button class="btn btn-link';
+    if (dataset['shipped'] != null) {
+        btn += ' disabled"';
+    } 
+    btn += ' title="Item shipped" onclick="shipped(';
+    btn += dataset['id'] + ')">';
+    btn += '<span class="glyphicon glyphicon-send"></span></button>';
+    return btn;
+}
+
+function getRcvBtn(dataset) {
+    var btn = '<button class="btn btn-link';
+    if (dataset['received'] != null) {
+        btn += ' disabled"';
+    } 
+    btn += ' title="Item received" onclick="received(';
+    btn += dataset['id'] + ')">';
+    btn += '<span class="glyphicon glyphicon-home"></span></button>';
+    return btn;
+}
+function received(id) {
+    $.ajax({
+        url: "repos/orderReceived.php",
+        type: "post",
+        data: {
+            "id": id
+        },
+        success: function(results) {
+            reloadTables();
+        }
+    })
+}
+
+function shipped(id) {
+    $.ajax({
+        url: "repos/orderShipped.php",
+        type: "post",
+        data: {
+            "id": id
+        },
+        success: function(results) {
+            reloadTables();
+        }
+    })
+}
+
+function cleanEditOrderModal() {
 
 }
 
 function editOrder(id) {
-
+    $.ajax({
+        url: "repos/getOrderById.php",
+        type: "post",
+        dataType: "json",
+        data: {
+            "id": id
+        },
+        success: function(results) {
+            if (results != null && results.length > 0) {
+                var order = results[0];
+                cleanEditOrderModal();
+                $('.editOrderId').val(order['id']);
+                $('.editOrderSize').val(order['size']);
+                $('.editOrderType').val(order['type']);
+                $('.edirOrderColor').val(order['color']);
+                $('.editOrder').modal('show');
+            }
+        }
+    })
 }
 
 function removeOrder(id) {
@@ -121,6 +221,35 @@ function removeOrder(id) {
             cleanOrderModal();
             reloadTables();
             $('.addOrder').modal('hide');
+        }
+    });
+}
+
+function cleanOrderModal() {
+    $('.addOrderColor').val('');
+    $('.addOrderSize').val('');
+    $('.addOrderType').val('');
+}
+
+function closeAddOrder() {
+    cleanOrderModal();
+    $('.addOrder').modal('hide');
+}
+
+function loadOrderSelectors() {
+    $.ajax({
+        url: "repos/getAllSpoolTypes.php",
+        dataType: "json",
+        success: function(results) {
+            if (results != null && results.length > 0) {
+                $('.addOrderType').empty();
+                for (i = 0; i < results.length; i++) {
+                    var spool = results[i];
+                    var option = '<option value="' + spool['id'] + '">';
+                    option += spool['spooltype'] + '</option>';
+                    $('.addOrderType').append(option); 
+                }
+            }
         }
     });
 }
