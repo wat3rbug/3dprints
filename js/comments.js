@@ -32,6 +32,7 @@ function clearComments() {
 function closeComments() {
     $('.viewComments').modal('hide');
     clearComments();
+    listStatusTable();
 }
 
 function viewComments(id) {

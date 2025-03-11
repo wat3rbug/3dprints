@@ -43,27 +43,29 @@ function addStatus() {
 }
 
 function listCommentsById(id, comments) {
-    var block = '<button type="button" class="btn btn-link" title="View comments" onclick="viewComments(' + id + ')">';
+    var block = '<button type="button" class="btn btn-link btn-sm" title="View comments" onclick="viewComments(' + id + ')">';
     block += comments + '</button>&nbsp;';
     return block;
 }
 
 function lineitem(item) {
     var input = '<li class="list-group-item"><div class="button-group">';
-    input += '<button type="button" class="btn btn-link" onclick="removeStatus(' + item['id'] + ')" >';
+    input += '<button type="button" class="btn btn-link btn-sm" title="Delete Status" style="border:none; padding: 2px;" ';
+    input += 'onclick="removeStatus(' + item['id'] + ')" >';
     input += '<span class="glyphicon glyphicon-remove"></span></button>';
-    input += '<button type="button" class="btn btn-link" onclick="editStatus(' + item['id'] + ')" >';
-    input += '<span class="glyphicon glyphicon-pencil"></span>';
+    input += '<button type="button" class="btn btn-link btn-sm" title="Edit Status" style="border:none; padding: 2px;" ';
+    input += 'onclick="editStatus(' + item['id'] + ')" ><span class="glyphicon glyphicon-pencil"></span>';
     input += '</button>&nbsp;' + item['status'] + '</div></li>';
     $('.statusgroup').append(input);
 }
 
 function getActionBox(id) {
-    var box = '<td><button type="button" class="btn btn-link" onclick="removeJob(' + id + ')" >';
+    var box = '<td style="width: 85px"><button type="button" style="border:none; padding:2px" class="btn btn-link btn-sm" ';
+    box += 'onclick="removeJob(' + id + ')" title="Delete Job">';
     box += '<span class="glyphicon glyphicon-remove"></span></button>';
-    box += '<button class="btn btn-link" type="button" onclick="editJob(' + id + ')" >';
+    box += '<button class="btn btn-link btn-sm" style="border:none; padding:2px" type="button" title="Edit Job" onclick="editJob(' + id + ')" >';
     box += '<span class="glyphicon glyphicon-pencil"></span></button>';
-    box += '<button type="button" class="btn btn-link" onclick="completeJob(' + id + ')" >';
+    box += '<button type="button" class="btn btn-link btn-sm" style="border:none; padding:2px" title="Complete Job" onclick="completeJob(' + id + ')" >';
     box += '<span class="glyphicon glyphicon-ok"></span></button>';
     box += '</td>';
     return box;

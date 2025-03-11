@@ -3,7 +3,7 @@
     <meta charsset="utf-8">
     <title>3D Print Listings - Whats Requested</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="css/frozenheader.css"> -->
+    <link rel="stylesheet" href="css/frozenheader.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 
@@ -50,43 +50,45 @@
 <div class="row">
     <div class="col-sm-1">&nbsp;</div>
     <div class="col-sm-8">
-        <table class="table table-striped joblisting">
-            <thead>
-                <tr>
-                    <th class="info">Action</th>
-                    <th class="info">Name</th>
-                    <th class="info">URL</th>
-                    <th class="info">Photo</th>
-                    <th class="info">Comments</th>
-                    <th class="info">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                </tr>
-            </tbody>
-            <!-- add job section -->
-            <tfoot>
-                <tr>
-                    <td>
-                        <button type="submit" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus addJob"></span>
-                        </button>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control addJobName" />
-                    </td>
-                    <td>
-                        <input type="text" class="form-control addJobURL" />
-                    </td>
-                    <td>
-                        <input type="text" class="form-control addJobPhoto" />
-                    </td>
-                    <td colspan="2">&nbsp;
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="frozen-container" style="max-height:700px">
+            <table class="table table-striped joblisting">
+                <thead>
+                    <tr>
+                        <th class="info" style="width:85px">Action</th>
+                        <th class="info">Name</th>
+                        <th class="info">URL</th>
+                        <th class="info">Photo</th>
+                        <th class="info">Comments</th>
+                        <th class="info">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+                <!-- add job section -->
+                <tfoot>
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn btn-success">
+                                <span class="glyphicon glyphicon-plus addJob"></span>
+                            </button>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control addJobName" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control addJobURL" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control addJobPhoto" />
+                        </td>
+                        <td colspan="2">&nbsp;
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
     <div class="col-sm-2">
         <!-- status section -->
@@ -95,8 +97,10 @@
                 Status Options
             </div>
             <div class="panel-body">
-                <ul class="list-group statusgroup">
-                </ul>
+                <div class="max-height:400px; overflow-y:auto">
+                    <ul class="list-group statusgroup">
+                    </ul>
+                </div>
                 <div class="input-group">
                     <span class="input-group-addon btn btn-success addStatus" title="Add a status">
                         <span class="glyphicon glyphicon-plus" id="plusshow"></span>
