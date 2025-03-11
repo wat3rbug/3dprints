@@ -129,10 +129,10 @@ function formatNullableDate(current) {
 }
 
 function getOrderActionBtns(dataset) {
-    var cell = '<button class="btn btn-link" title="remove order"';
+    var cell = '<button class="btn btn-link btn-sm" style="border: none; padding:0px" title="remove order"';
     cell += ' onclick="removeOrder(' + dataset['id'] + ')">';
     cell += '<span class="glyphicon glyphicon-remove"></span>';
-    cell += '</button><button type="button" class="btn btn-link"';
+    cell += '</button><button type="button" style="border: none; padding:0px" class="btn btn-link btn-sm"';
     cell += 'title="edit order" onclick="editOrder(' + dataset['id'];
     cell += ')"><span class="glyphicon glyphicon-pencil"></span>';
     cell += '</button>' + getShipBtn(dataset) + getRcvBtn(dataset);
@@ -140,22 +140,22 @@ function getOrderActionBtns(dataset) {
 }
 
 function getShipBtn(dataset) {
-    var btn = '<button class="btn btn-link';
+    var btn = '<button class="btn btn-link btn-sm';
     if (dataset['shipped'] != null) {
         btn += ' disabled"';
     } 
-    btn += ' title="Item shipped" onclick="shipped(';
+    btn += ' title="Item shipped" style="border: none; padding:0px" onclick="shipped(';
     btn += dataset['id'] + ')">';
     btn += '<span class="glyphicon glyphicon-send"></span></button>';
     return btn;
 }
 
 function getRcvBtn(dataset) {
-    var btn = '<button class="btn btn-link';
+    var btn = '<button class="btn btn-link btn-sm';
     if (dataset['received'] != null) {
         btn += ' disabled"';
     } 
-    btn += ' title="Item received" onclick="received(';
+    btn += ' title="Item received" style="border: none; padding:0px" onclick="received(';
     btn += dataset['id'] + ')">';
     btn += '<span class="glyphicon glyphicon-home"></span></button>';
     return btn;

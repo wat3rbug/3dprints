@@ -104,12 +104,12 @@ function editVendor(id) {
 }
 
 function getVendorActionBtns(id) {
-    var row = '<button class="btn btn-link" title="remove vendor"';
+    var row = '<button class="btn btn-link" title="remove vendor" style="border: none"';
     row +=' onclick="removeVendor(' + id + ')" ><span class="glyphicon glyphicon-remove">';
-    row += '</span></button>&nbsp;';
-    row += '<button class="btn btn-link" title="edit vendor"';
+    row += '</span></button>';
+    row += '<button class="btn btn-link" title="edit vendor" style="border: none"';
     row += 'onclick="editVendor(' + id + ')" ><span class="glyphicon glyphicon-pencil">';
-    row += '</span></button>&nbsp;';
+    row += '</span></button>';
     return row;
 }
 
