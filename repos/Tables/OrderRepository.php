@@ -91,4 +91,15 @@ class OrderRepository {
             $statement->execute();
         }
     }
+
+    function getDeliveryStats() {
+        $sql = "SELECT orders.id, ABS(Datediff(received, ordered)) AS 'day', vendors.name AS vendor FROM orders JOIN vendors ON orders.vendorid = vendors.id ORDER BY vendor, day ASC";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
 }

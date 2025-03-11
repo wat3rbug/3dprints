@@ -24,9 +24,9 @@ function getSpoolColorCounts() {
                 var line = results[i];
                 var percent = (line['count'] / total * 100);
                 var bar = line['color'] + '<div class="progress">';
-                bar += '<div class="progress-bar bg-info" role="progressbar" ';
-                bar += 'style="width: ' + percent + '%" aria-valuenow="' + percent + '" ';
-                bar += 'aria-valuemin="0" aria-valuemax="100"></div></div>';
+                bar += '<div class="progress-bar" role="progressbar" ';
+                bar += 'style="width: ' + percent + '%" aria-valuenow="' + line['count'] + '" ';
+                bar += 'aria-valuemin="0" aria-valuemax="' + total + '">' + line['count'] + '</div></div>';
                 $('.spoolcolor').append(bar);
             }
         }
@@ -49,7 +49,7 @@ function getSpoolSizeCounts() {
                 var bar = line['size'] + '<div class="progress">';
                 bar += '<div class="progress-bar bg-info" role="progressbar" ';
                 bar += 'style="width: ' + percent + '%" aria-valuenow="' + percent + '" ';
-                bar += 'aria-valuemin="0" aria-valuemax="100"></div></div>';
+                bar += 'aria-valuemin="0" aria-valuemax="100">' +line['count'] + '</div></div>';
                 $('.spoolsize').append(bar);
             }
         }
@@ -72,7 +72,7 @@ function getSpoolTypeCounts() {
                 var bar = line['spooltype'] + '<div class="progress">';
                 bar += '<div class="progress-bar bg-info" role="progressbar" ';
                 bar += 'style="width: ' + percent + '%" aria-valuenow="' + percent + '" ';
-                bar += 'aria-valuemin="0" aria-valuemax="100"></div></div>';
+                bar += 'aria-valuemin="0" aria-valuemax="100">' + line['count'] + '</div></div>';
                 $('.spooltype').append(bar);
             }
         }
@@ -134,7 +134,7 @@ function listAllSpools() {
                 for (i = 0; i < results.length; i++) {
                     var result = results[i];
                     var line = '<tr>' + getActionBox(result['id']);
-                    line += '<td>' + result['color'] + '</td>';
+                    line += '<td>' + getColorLink(result) + '</td>';
                     line += '<td>' + result['spooltype'] + '</td>';
                     line += '<td>' + result['size'] + '</td></tr>';
                     $('.spoollisting tbody').append(line);
@@ -142,6 +142,14 @@ function listAllSpools() {
             }
         }
     });
+}
+
+function getColorLink(dataset) {
+    var cell = '<a href="orders.html#spool_' + dataset['id'];
+    cell += '" title="' + dataset['color'] + ' details">' + dataset['color'];
+    cell += '</a>';
+    return cell;
+
 }
 
 function getActionBox(id) {

@@ -3,6 +3,7 @@
     <meta charsset="utf-8">
     <title>3D Print Listings - Whats Requested</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/frozenheader.css"> -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 
@@ -105,6 +106,7 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-1">&nbsp;</div>
 </div>
 
 <!-- edit job modal section -->
@@ -199,6 +201,32 @@
                 <button type="button" class="btn btn-default" title="cancel changes" onclick="closeEditStatus()">
                     <span class="glyphicon glyphicon-ban-circle"></span>
                 &nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete job dialog -->
+
+<div class="modal deleteJobModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="model-header">
+                <h4 class="modal-title text-center">Job Deleted</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-10 text-center">The job has been deleted</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove">&nbsp;Close</span>
+                </button>
             </div>
         </div>
     </div>

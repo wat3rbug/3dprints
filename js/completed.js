@@ -23,9 +23,9 @@ function getCompletedJobs() {
                 for (i = 0; i < results.length; i++) {
                     var result = results[i];
                     var line = '<tr>';
-                    line += '<td><button class="btn btn-link" onclick="undo(' + result['id'] + ')" title="Undo completion">';
-                    line += '<span class="glyphicon glyphicon-refresh"></span></button>&nbsp;';
-                    line += '<button class="btn btn-link" onclick="copy(' + result['id'] + ')" title="Duplicate new task">';
+                    line += '<td style="width: 65px"><button class="btn btn-link" onclick="undo(' + result['id'] + ')" title="Undo completion">';
+                    line += '<span class="glyphicon glyphicon-refresh"></span></button>';
+                    line += '<button class="btn btn-link" onclick="copy(' + result['id'] + ')" title="Duplicate as new task">';
                     line += '<span class="glyphicon glyphicon-duplicate"></span></button></td>';
                     line += '<td>' + result['name'] + '</td>';
                     line += '<td><a href="' + result['url'] + '" target="_blank">' +result['url'] + '</a></td>';
@@ -50,7 +50,7 @@ function copy(id) {
             "id": id
         },
         success: function(results) {
-            getCompletedJobs();
+            window.location.href= "index.html";
         }
     });
 }

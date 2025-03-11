@@ -25,7 +25,13 @@ function listAllJobs() {
             } else {
                 for (i = 0; i < results.length; i++) {
                     var result = results[i];
-                    var line = '<tr>' + getActionBox(result['id']);
+                    var line;
+                    if (result['status'] == 'in progress') {
+                        line = '<tr class="warning">';
+                    } else {
+                        line = '<tr>';
+                    }
+                    line += getActionBox(result['id']);
                     line += '<td>' + result['name'] + '</td>';
                     line += '<td><a href="' + result['url'] + '" target="_blank">' + result['url'] + '</a></td>';
                     line += '<td>' + result['photo'] + '</td>';
@@ -110,6 +116,7 @@ function removeJob(id) {
         },
         success: function(result) {
             listAllJobs();
+            $('.deleteJobModal').modal('show');
         }
     });
 }

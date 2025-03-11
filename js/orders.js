@@ -87,6 +87,7 @@ function reloadTables() {
     loadVendorTable();
     loadOrderTable();
     loadOrderSelectors();
+    loadDeliveryStats();
 }
 
 function loadOrderTable() {
@@ -116,7 +117,8 @@ function loadOrderTable() {
 }
 
 function getSpoolDetails(order) {
-    var detail = order['color'] + ' - ' + order['spooltype'];
+    var detail = '<a name="spool_' + order['id'] + '">';
+    detail += order['color'] + '</a> - ' + order['spooltype'];
     return detail;
 
 }
@@ -252,4 +254,38 @@ function loadOrderSelectors() {
             }
         }
     });
+}
+
+function loadDeliveryStats() {
+    $.ajax({
+        url: "repos/getDeliveryStats.php",
+        dataType: "json",
+        success: function(results) {
+            $('.deliveryprogress').empty();
+            var vendors = new Set(results.map(stats => stats.vendor));
+            vendors.forEach(function (vendor) {
+                var specific = results.filter(stats => stats.vendor == vendor);
+                var size = specific.length - 1;
+                var mid = Math.floor(specific.length / 2);
+                var high = Math.floor(specific.length * .75);
+                var low = Math.floor(specific.length * .25);
+                var p75 = Math.floor(specific[high].day);
+                var p50 = Math.floor(specific[mid].day);
+                var p25 = Math.floor(specific[low].day);
+                var last = specific[size].day;
+                var row = vendor + '<div class="progress">';
+                row += makeProgressSection(p25, last, "info");
+                row += makeProgressSection(p50, last, "warning");
+                row += makeProgressSection(p75, last, "danger");
+                row += '</div>';
+                $('.deliveryprogress').append(row);
+            }); 
+        }
+    });
+}
+function makeProgressSection(sect, last, color) {
+    var row = '<div class="progress-bar bg-' + color + '" role="progressbar"';
+    row += ' aria-valuenow="' + sect + '" aria-valuemin="0" aria-valuemax="' + last + '" style="width:';
+    row += sect / last * 100 + '%">' + sect + '</div>';
+    return row;
 }
