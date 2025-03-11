@@ -153,9 +153,9 @@ function getColorLink(dataset) {
 }
 
 function getActionBox(id) {
-    var box = '<td style="width: 65px"><button type="button" class="btn btn-link" onclick="removeSpool(';
+    var box = '<td style="width: 65px"><button type="button" class="btn btn-link btn-sm" style="border:none padding: 2px" onclick="removeSpool(';
     box += id + ')"><span class="glyphicon glyphicon-remove"></span></button>';
-    box += '<button type="button" class="btn btn-link" onclick="editSpool(' + id + ')" >';
+    box += '<button type="button" class="btn btn-link" style="border:none padding: 2px" btn-sm onclick="editSpool(' + id + ')" >';
     box += '<span class="glyphicon glyphicon-pencil"></span></td>';
     return box;
 }

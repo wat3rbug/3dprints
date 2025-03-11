@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-
+    <link rel="stylesheet" href="css/frozenheader.css">
     <script src="jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/spools.js"></script>
@@ -49,20 +49,22 @@
     <div class="col-sm-1">&nbsp;</div>
     <div class="col-sm-4">
         <p class="text-center">Purchased Spools</p>
-        <table class="table table-striped spoollisting">
-            <thead>
-                <tr>
-                    <th class="info" style="width:85px">Action</th>
-                    <th class="info">Color</th>
-                    <th class="info">Type</th>
-                    <th class="info">Size(kg)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                </tr>
-            </tbody>
-        </table>
+        <div class="frozen-container" style="max-height:700px">
+            <table class="table table-striped spoollisting">
+                <thead>
+                    <tr>
+                        <th class="info" style="width:85px">Action</th>
+                        <th class="info">Color</th>
+                        <th class="info">Type</th>
+                        <th class="info">Size(kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="col-sm-3">
         <div class="panel panel-default">

@@ -23,10 +23,11 @@ function getCompletedJobs() {
                 for (i = 0; i < results.length; i++) {
                     var result = results[i];
                     var line = '<tr>';
-                    line += '<td style="width: 65px"><button class="btn btn-link" onclick="undo(' + result['id'] + ')" title="Undo completion">';
-                    line += '<span class="glyphicon glyphicon-refresh"></span></button>';
-                    line += '<button class="btn btn-link" onclick="copy(' + result['id'] + ')" title="Duplicate as new task">';
-                    line += '<span class="glyphicon glyphicon-duplicate"></span></button></td>';
+                    line += '<td style="width: 65px"><button class="btn btn-link btn-sm" style="border:none; padding:2px" ';
+                    line += 'onclick="undo(' + result['id'] + ')" title="Undo completion"><span class="glyphicon glyphicon-refresh">';
+                    line += '</span></button>';
+                    line += '<button class="btn btn-link btn-sm" style="border:none; padding:2px" onclick="copy(' + result['id'];
+                    line += ')" title="Duplicate as new task"><span class="glyphicon glyphicon-duplicate"></span></button></td>';
                     line += '<td>' + result['name'] + '</td>';
                     line += '<td><a href="' + result['url'] + '" target="_blank">' +result['url'] + '</a></td>';
                     if (result['photo'] == null || result['photo'] == "") {
@@ -34,7 +35,7 @@ function getCompletedJobs() {
                     } else {
                         line += '<td>' + results['photo'] + '</td>';
                     }
-                    line += '<td><button class="btn btn-link" type="button" onclick="viewComments(' + result['id'] + ')">'+ result['comments'] +'</button></td>';
+                    line += '<td><button class="btn btn-link btn-sm" style="border:none; padding:2px" type="button" onclick="viewComments(' + result['id'] + ')">'+ result['comments'] +'</button></td>';
                     line += '</tr>';
                     $('.joblisting tbody').append(line);
                 }
