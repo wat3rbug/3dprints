@@ -129,10 +129,10 @@ function formatNullableDate(current) {
 }
 
 function getOrderActionBtns(dataset) {
-    var cell = '<button class="btn btn-link btn-sm" style="border: none; padding:0px" title="remove order"';
+    var cell = '<button class="btn btn-link btn-sm" style="border: none; padding:2px" title="remove order"';
     cell += ' onclick="removeOrder(' + dataset['id'] + ')">';
     cell += '<span class="glyphicon glyphicon-remove"></span>';
-    cell += '</button><button type="button" style="border: none; padding:0px" class="btn btn-link btn-sm"';
+    cell += '</button><button type="button" style="border: none; padding:2px" class="btn btn-link btn-sm"';
     cell += 'title="edit order" onclick="editOrder(' + dataset['id'];
     cell += ')"><span class="glyphicon glyphicon-pencil"></span>';
     cell += '</button>' + getShipBtn(dataset) + getRcvBtn(dataset);
@@ -144,7 +144,7 @@ function getShipBtn(dataset) {
     if (dataset['shipped'] != null) {
         btn += ' disabled"';
     } 
-    btn += ' title="Item shipped" style="border: none; padding:0px" onclick="shipped(';
+    btn += ' title="Item shipped" style="border: none; padding:2px" onclick="shipped(';
     btn += dataset['id'] + ')">';
     btn += '<span class="glyphicon glyphicon-send"></span></button>';
     return btn;
@@ -155,7 +155,7 @@ function getRcvBtn(dataset) {
     if (dataset['received'] != null) {
         btn += ' disabled"';
     } 
-    btn += ' title="Item received" style="border: none; padding:0px" onclick="received(';
+    btn += ' title="Item received" style="border: none; padding:2px" onclick="received(';
     btn += dataset['id'] + ')">';
     btn += '<span class="glyphicon glyphicon-home"></span></button>';
     return btn;
@@ -263,6 +263,10 @@ function loadDeliveryStats() {
         success: function(results) {
             $('.deliveryprogress').empty();
             var vendors = new Set(results.map(stats => stats.vendor));
+            var longest = 0;
+            results.forEach(function(delivery) {
+                if (delivery.day > longest) longest = delivery.day;
+            });
             vendors.forEach(function (vendor) {
                 var specific = results.filter(stats => stats.vendor == vendor);
                 var size = specific.length - 1;
@@ -272,11 +276,11 @@ function loadDeliveryStats() {
                 var p75 = Math.floor(specific[high].day);
                 var p50 = Math.floor(specific[mid].day);
                 var p25 = Math.floor(specific[low].day);
-                var last = specific[size].day;
+                // var last = specific[size].day;
                 var row = vendor + '<div class="progress">';
-                row += makeProgressSection(p25, last, "info");
-                row += makeProgressSection(p50, last, "warning");
-                row += makeProgressSection(p75, last, "danger");
+                row += makeProgressSection(p25, longest, "info");
+                row += makeProgressSection(p50, longest, "warning");
+                row += makeProgressSection(p75, longest, "danger");
                 row += '</div>';
                 $('.deliveryprogress').append(row);
             }); 
