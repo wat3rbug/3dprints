@@ -8,6 +8,7 @@ $(document).ready(function() {
     getSpoolColorCounts();
     getSpoolSizeCounts();
     getSpoolTypeCounts();
+    getSpoolCountByMonth();
 });
 
 function getSpoolColorCounts() {
@@ -205,4 +206,35 @@ function closeEditSpool() {
     $('.editSpoolTypeSelect').val('');
     $('.editSpoolSize').val('');
     $('.editSpool').modal('hide');
+}
+
+function getSpoolCountByMonth() {
+    $.ajax({
+        url: "repos/getSpoolsByMonth.php",
+        dataType: "json",
+        success: function(results) {
+
+            var longest = 0;
+            results.forEach(function(count){
+                if (count.count > longest) longest = count.count;
+            });
+            results.forEach(function(count){
+                var line = '<div class="progress">';
+                line += getBarForMonthCount(longest, count);
+                line += '</div>';
+                $('.countgroup').append(line);
+            });
+        }
+    });
+}
+function getBarForMonthCount(longest, count) {
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 
+        'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 
+        'Dec'];
+    var row = '<div class="progress-bar bg-success" role="progressbar"';
+    row += 'aria-valuenow="' + count.count + '" aria-valuemax="';
+    row += longest + '" style="width: ' + count.count / longest * 100 
+    row += '%">' + count.count + ' - ' + months[count.month - 1] + ' ' 
+    row += count.year + '</div>';
+    return row;
 }
