@@ -11,18 +11,18 @@ Since there is always work to do I have written it here.  In fact, I came here t
 
 1. Active Prints
 <ul>
-  <li>Make the action column smaller</li>
+  <li>Make the action column smaller. - done</li>
   <li>Make active tab appear - Its an issue with a certain version of bootstrap?</li>
-  <li>Make the table scrollable with frozen headers</li>
+  <li>Make the table scrollable with frozen headers. - done</li>
   <li>When adding comments, update the table</li>
 </ul>
 2. Spools
 <ul>
-  <li>Make scrollable purchased spools table with frozen headers</li>
-  <li>Make a graph of purchased scrolls by month</li>
+  <li>Make scrollable purchased spools table with frozen headers. - done</li>
+  <li>Make a graph of purchased scrolls by month. - done</li>
 </ul>
 3. Orders
 <ul>
-  <li>Make scrollable purchased spools table with frozen headers</li>
+  <li>Make scrollable purchased spools table with frozen headers. - done</li>
 </ul>
 
