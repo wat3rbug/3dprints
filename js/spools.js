@@ -154,13 +154,28 @@ function getColorLink(dataset) {
 }
 
 function getActionBox(id) {
-    var box = '<td style="width: 65px"><button type="button" class="btn btn-link btn-sm" style="border:none padding: 2px" onclick="removeSpool(';
-    box += id + ')"><span class="glyphicon glyphicon-remove"></span></button>';
-    box += '<button type="button" class="btn btn-link" style="border:none padding: 2px" btn-sm onclick="editSpool(' + id + ')" >';
-    box += '<span class="glyphicon glyphicon-pencil"></span></td>';
+    var box = '<td style="width: 85px">';
+    box += '<button type="button" class="btn btn-link btn-sm" title="Delete Spool" style="border:none; padding: 2px" ';
+    box += 'onclick="removeSpool(' + id + ')"><span class="glyphicon glyphicon-remove"></span></button>';
+    box += '<button type="button" class="btn btn-link btn-sm"  title="Edit Spool" style="border:none; padding: 2px" ';
+    box += 'onclick="editSpool(' + id + ')" ><span class="glyphicon glyphicon-pencil"></span></button>';
+    box += '<button type="button" class="btn btn-link btn-sm" title="Empty Spool" style="border:none; padding: 2px" ';
+    box += 'onclick="emptySpool(' + id + ')"><span class="glyphicon glyphicon-trash"></span></button></td>';
     return box;
 }
 
+function emptySpool(id) {
+    $.ajax({
+        url: "repos/emptySpool.php",
+        type: "post",
+        data: {
+            "id": id
+        },
+        success: function(results) {
+            listAllSpools();
+        }
+    })
+}
 function removeSpool(id) {
     $.ajax({
         url: "repos/deleteSpool.php",

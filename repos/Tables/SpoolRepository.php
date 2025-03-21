@@ -57,7 +57,7 @@ class SpoolRepository {
     }
 
     function getAllSpools() {
-        $sql = "SELECT spools.*, spool_types.spooltype AS spooltype FROM spools JOIN spool_types ON spools.type = spool_types.id JOIN orders on spools.id = orders.spoolid WHERE orders.shipped IS NOT NULL";
+        $sql = "SELECT spools.*, spool_types.spooltype AS spooltype FROM spools JOIN spool_types ON spools.type = spool_types.id JOIN orders on spools.id = orders.spoolid WHERE orders.shipped IS NOT NULL AND used = 0";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
@@ -69,7 +69,7 @@ class SpoolRepository {
 
     function getSpoolById($id) {
         if (isset($id)) {
-            $sql = "SELECT * FROM spools WHERE id = ?";
+            $sql = "SELECT * FROM spools WHERE id = ? AND used = 0";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $id);
             $statement->execute();
@@ -122,6 +122,14 @@ class SpoolRepository {
             $output[] = $row;
         }
         return $output;
+    }
+    function emptySpool($spool) {
+        if (isset($spool)) {
+            $sql = "UPDATE spools SET used = 1 WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $spool);
+            $statement->execute();
+        }
     }
 
     function getSpoolCountByMonth() {
