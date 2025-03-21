@@ -14,7 +14,7 @@ Since there is always work to do I have written it here.  In fact, I came here t
   <li>Make spools column show only the stuff that isn't used - done</li>
   <li>Add ability to add photo to the model input </li>
   <li>Make the action column smaller. - done</li>
-  <li>Make active tab appear - Its an issue with a certain version of bootstrap?</li>
+  <li>Make active tab appear - Its an issue with a certain version of bootstrap? - done.</li>
   <li>Make the table scrollable with frozen headers. - done</li>
   <li>When adding comments, update the table</li>
 </ul>
