@@ -1,0 +1,24 @@
+.frozen-container {
+    overflow-y: auto;
+    max-height: 400px; /* Adjust height as needed */
+    position: relative;
+}
+
+.frozen-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.frozen-container thead {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+}
+
+.frozen-container table th, 
+.frozen-container table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
