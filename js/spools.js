@@ -233,10 +233,14 @@ function getSpoolCountByMonth() {
             results.forEach(function(count){
                 if (count.count > longest) longest = count.count;
             });
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 
+                'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 
+                'Dec'];
             results.forEach(function(count){
-                var line = '<div class="progress">';
+                var line = months[count.month -1] + ' ' + count.year;
+                line += '<div class="progress">';
                 line += getBarForMonthCount(longest, count);
-                line += '</div>';
+                line += '</div><div class="row">&nbsp;</div>';
                 $('.countgroup').append(line);
             });
         }
@@ -246,10 +250,9 @@ function getBarForMonthCount(longest, count) {
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 
         'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 
         'Dec'];
-    var row = '<div class="progress-bar bg-success" role="progressbar"';
+    var row = '<div class="progress-bar bg-primary" role="progressbar"';
     row += 'aria-valuenow="' + count.count + '" aria-valuemax="';
     row += longest + '" style="width: ' + count.count / longest * 100 
-    row += '%">' + count.count + ' - ' + months[count.month - 1] + ' ' 
-    row += count.year + '</div>';
+    row += '%">' + count.count + '</div>';
     return row;
 }
