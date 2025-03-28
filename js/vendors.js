@@ -20,6 +20,7 @@ function addVendor() {
         },
         success: function(results) {
             reloadTables();
+            loadOrderVendorSelectors();
         }
     })
 }
@@ -56,6 +57,7 @@ function removeVendor(id) {
         },
         success: function(results) {
             reloadTables();
+            loadOrderVendorSelectors();
         }
     })
 }
@@ -76,6 +78,7 @@ function updateVendor() {
         },
         success: function(results) {
             reloadTables();
+            loadOrderVendorSelectors();
         }
     });
 }

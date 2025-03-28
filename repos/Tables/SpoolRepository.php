@@ -67,6 +67,29 @@ class SpoolRepository {
         return $output;
     }
 
+    function getSpoolInventory() {
+        $sql = "SELECT spools.*, spool_types.spooltype AS spooltype FROM spools JOIN spool_types ON spools.type = spool_types.Id JOIN orders ON spools.id = orders.spoolid WHERE orders.received IS NOT NULL AND used = 0";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while ($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
+
+    function getSpoolsOnOrder() {
+        $sql = "SELECT spools.*, spool_types.spooltype AS spooltype FROM spools JOIN spool_types ON spools.type = spool_types.Id JOIN orders ON spools.id = orders.spoolid WHERE orders.received IS NULL AND used = 0";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while ($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
+
+
     function getSpoolById($id) {
         if (isset($id)) {
             $sql = "SELECT * FROM spools WHERE id = ? AND used = 0";

@@ -1,5 +1,6 @@
 $(document).ready(function() {
     listAllSpools();
+    listOnOrder();
 
     $('.addSpool').on('click', function() {
         addSpool();
@@ -117,13 +118,14 @@ function addSpool() {
             $('.addSpoolTypeSelect').val('');
             $('.addSpoolSize').val('');
             listAllSpools();
+            listOnOrder();
         }
     })
 }
 
 function listAllSpools() {
     $.ajax({
-        url: "repos/getAllSpools.php",
+        url: "repos/getSpoolInventory.php",
         dataType: "json",
         success: function(results) {
             $('.spoollisting tbody').empty();
@@ -139,6 +141,30 @@ function listAllSpools() {
                     line += '<td>' + result['spooltype'] + '</td>';
                     line += '<td>' + result['size'] + '</td></tr>';
                     $('.spoollisting tbody').append(line);
+                }
+            }
+        }
+    });
+}
+
+function listOnOrder() {
+    $.ajax({
+        url: "repos/getSpoolsOnOrder.php",
+        dataType: "json",
+        success: function(results) {
+            $('.spoolonorder tbody').empty();
+            if (results.length  == 0 || results == null) {
+                var empty = '<tr><td colspan="4" class="text-center">No Spools</td>No jobs</td></tr>';
+                $('.spoolonorder').find('tbody tr').remove();
+                $('.spoolonorder').append(empty);
+            } else {
+                for (i = 0; i < results.length; i++) {
+                    var result = results[i];
+                    var line = '<tr>' + getActionBox(result['id']);
+                    line += '<td>' + getColorLink(result) + '</td>';
+                    line += '<td>' + result['spooltype'] + '</td>';
+                    line += '<td>' + result['size'] + '</td></tr>';
+                    $('.spoolonorder tbody').append(line);
                 }
             }
         }
@@ -173,6 +199,7 @@ function emptySpool(id) {
         },
         success: function(results) {
             listAllSpools();
+            listOnOrder();
         }
     })
 }
@@ -185,6 +212,7 @@ function removeSpool(id) {
         },
         success: function(results) {
             listAllSpools();
+            listOnOrder();
         }
     })
 }
@@ -205,6 +233,7 @@ function saveSpool() {
         },
         success: function(results) {
             listAllSpools();
+            listOnOrder();
             listSpoolTypeInsert();
             $('.editSpoolColor').val('');
             $('.editSpoolId').val('');
