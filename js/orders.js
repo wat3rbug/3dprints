@@ -112,6 +112,7 @@ function loadOrderTable() {
                     $('.orderlisting tbody').append(row);
                 }
             }
+
         }
     });
 }
@@ -293,3 +294,4 @@ function makeProgressSection(sect, last, color) {
     row += sect / last * 100 + '%">' + sect + '</div>';
     return row;
 }
+

@@ -102,4 +102,15 @@ class OrderRepository {
         }
         return $output;
     }
+
+    function getOrdersPerYear() {
+        $sql = "SELECT count(*) AS count, YEAR(received) AS `year` FROM orders GROUP BY year(received)";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
 }

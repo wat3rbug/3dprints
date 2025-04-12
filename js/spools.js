@@ -10,6 +10,7 @@ $(document).ready(function() {
     getSpoolSizeCounts();
     getSpoolTypeCounts();
     getSpoolCountByMonth();
+    loadSpoolTotalTable();
 });
 
 function getSpoolColorCounts() {
@@ -284,4 +285,20 @@ function getBarForMonthCount(longest, count) {
     row += longest + '" style="width: ' + count.count / longest * 100 
     row += '%">' + count.count + '</div>';
     return row;
+}
+
+function loadSpoolTotalTable() {
+    $.ajax({
+        url: "repos/getOrdersPerYear.php",
+        dataType: "json",
+        success: function(results) {
+            if (results != null && results.length > 0) {
+                for(i = 0; i < results.length; i++) {
+                    var ytd = results[i];
+                    var line = '<p><b>' + ytd.count + '</b> - ' + ytd.year + '</p>';
+                    $('.totalspools').append(line);
+                }
+            }
+        }
+    })
 }
