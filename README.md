@@ -25,6 +25,7 @@ Since there is always work to do I have written it here.  In fact, I came here t
 </ul>
 3. Orders
 <ul>
+  <li> Make a table that shows arrival of orders and the percentage that arrival time is met.  (having problems with Amazon as of late) </li>
   <li>Add a small section in order history that has spool orders YTD Total for wider trends - done</li>
   <li>Make scrollable purchased spools table with frozen headers. - done</li>
 </ul>
