@@ -1,6 +1,7 @@
 <?php
-require "Tables/OrderRepository.php";
-$db = new OrderRepository();
+require "Tables/SpoolRepository.php";
+$db = new SpoolRepository();
 $data = $db->getOrdersPerYear();
 header('Content-type: application/json');
 echo json_encode($data);
+?>

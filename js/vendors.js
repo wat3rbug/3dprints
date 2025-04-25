@@ -4,6 +4,8 @@ $(document).ready(function() {
     $('.addVendorBtn').on('click', function() {
         addVendor();
     });
+
+    loadOnTimeTable();
 });
 
 function addVendor() {
@@ -121,6 +123,7 @@ function cleanEditVendorModal() {
     $('.editVendorName').val('');
     $('.editVendorUrl').val('');
 }
+
 function loadOrderVendorSelectors() {
     $.ajax({
         url: "repos/getAllVendors.php",
@@ -136,5 +139,26 @@ function loadOrderVendorSelectors() {
                 }
             }
         }
-    })
+    });
+}
+
+function loadOnTimeTable() {
+    $.ajax({
+        url: "/repos/getOnTimePercentage.php",
+        dataType: "json",
+        success: function(results) {
+            if (results != null && results.length > 0) {
+                $('.ontime').empty();
+                for (i = 0; i < results.length; i++) {
+                    var percent = results[i];
+                    var line = '<p><b>' + percent.count + '</b> - ';
+                    line += percent.vendor + '</p>';
+                    $('.ontime').append(line);
+                }
+            }
+
+
+
+        }
+    });
 }

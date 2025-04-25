@@ -31,6 +31,7 @@ function getOrderDetails(id) {
                 $('.editShipped').val(results[0]['shipped']);
                 $('.editOrdered').val(results[0]['ordered']);
                 $('.editReceived').val(results[0]['received']);
+                $('.editETA').val(results[0]['eta']);
             }
         }
     })
@@ -58,6 +59,7 @@ function updateOrder() {
     var ordered = $('.editOrdered').val();
     var received = $('.editReceived').val();
     var vendor = $('.editVendor').val();
+    var eta = $('.editeta').val();
 }
 
 function createOrder() {
@@ -65,6 +67,7 @@ function createOrder() {
     var vendor = $('.addOrderVendor').val();
     var spool = $('.addOrderType').val();
     var size = $('.addOrderSize').val();
+    var eta = $('.addOrderEta').val();
     $.ajax({
         url: "repos/createOrder.php",
         type: "post",
@@ -72,6 +75,7 @@ function createOrder() {
             "color": color,
             "vendor": vendor,
             "type": spool,
+            "eta": eta,
             "size": size
             
         },
@@ -97,7 +101,7 @@ function loadOrderTable() {
         success: function(results) {
             $('.orderlisting tbody').empty();
             if (results == null || results.length == 0) {
-                var nodata = '<tr><td class="text-center" colspan="6">';
+                var nodata = '<tr><td class="text-center" colspan="7">';
                 nodata += 'No orders</td></tr>';
                 $('.orderlisting tbody').append(nodata);
             } else {
@@ -109,6 +113,7 @@ function loadOrderTable() {
                     row += '<td>' + formatNullableDate(result['ordered']) + '</td>';
                     row += '<td>' + formatNullableDate(result['shipped']) + '</td>';
                     row += '<td>' + formatNullableDate(result['received']) + '</td>';
+                    row += '<td>' + formatNullableDate(result['eta']) + '</td>';
                     $('.orderlisting tbody').append(row);
                 }
             }
@@ -232,6 +237,7 @@ function cleanOrderModal() {
     $('.addOrderColor').val('');
     $('.addOrderSize').val('');
     $('.addOrderType').val('');
+    $('.addOrderEta').val('');
 }
 
 function closeAddOrder() {

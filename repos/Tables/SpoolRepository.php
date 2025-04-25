@@ -156,7 +156,7 @@ class SpoolRepository {
     }
 
     function getSpoolCountByMonth() {
-        $sql = "SELECT COUNT(*) AS count, year(received) AS year, month(received) as month FROM orders WHERE received is not null GROUP BY `year`, month ORDER BY `year`, month";
+        $sql = "SELECT COUNT(*) AS count, year(received) AS year, month(received) as month FROM orders WHERE received is not null GROUP BY `year`, month ORDER BY `year` DESC, month DESC";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
@@ -167,7 +167,7 @@ class SpoolRepository {
     }
 
     function getOrdersPerYear() {
-        $sql = "SELECT COUNT(*) AS count, year(received) AS `year`, month(received) as month FROM orders WHERE received is not null GROUP BY `year` ORDER BY `year` DESC";
+        $sql = "SELECT COUNT(*) AS count, year(received) AS `year` FROM orders where received is not null  GROUP BY `year` ORDER BY `year` DESC";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();

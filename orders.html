@@ -66,6 +66,7 @@
                     <th class="info">Ordered</th>
                     <th class="info">Shipped</th>
                     <th class="info">Received</th>
+                    <th class="info">ETA</th>
                 </tr>
             </thead>
             <tbody>
@@ -106,17 +107,35 @@
             </div>
         </div>
         <div class="row">&nbsp;</div>
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title text-center">
-                    Delivery Times
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title text-center">
+                            Delivery Times
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body deliveryprogress">
+                        </div>
+                    </div> 
                 </div>
             </div>
-            <div class="card-content">
-                <div class="card-body deliveryprogress">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title text-center">
+                            On Time Percentage
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body ontime">
+                        </div>
+                    </div>
                 </div>
-            </div> 
+            </div>
         </div>
+       
     </div>
 </div>
 
@@ -206,6 +225,15 @@
                     </div>
                     <div class="col-sm-4 text-left">
                         <select class="form-control addOrderVendor"></select>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-5 text-right">
+                        <b>ETA</b>
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <input type="date" class="form-control addOrderEta">
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
@@ -319,6 +347,13 @@
                     <div class="col-sm-5 text-right"><b>Received</b></div>
                     <div class="col-sm-4 text-left">
                         <input type="date" class="form-control editReceived" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-5 text-right"><b>ETA</b></div>
+                    <div class="col-sm-4 text-left">
+                        <input type="date" class="form-control editEta" />
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>

@@ -295,8 +295,10 @@ function loadSpoolTotalTable() {
             if (results != null && results.length > 0) {
                 for(i = 0; i < results.length; i++) {
                     var ytd = results[i];
-                    var line = '<p><b>' + ytd.count + '</b> - ' + ytd.year + '</p>';
-                    $('.totalspools').append(line);
+                    if (ytd.year != null) {
+                        var line = '<p><b>' + ytd.count + '</b> - ' + ytd.year + '</p>';
+                        $('.totalspools').append(line);
+                    }
                 }
             }
         }

@@ -3,8 +3,9 @@ require "Tables/OrderRepository.php";
 $id = $_POST["id"];
 $vendor = $_POST["vendor"];
 $spool = $_POST["spool"];
+$eta = $_POST["eta"];
 
 if (isset($id) && isset($spool) && isset($vendor)) {
     $db = new OrderRepository();
-    $db->updateOrder($id, $spool, $vendor);
+    $db->updateOrder($id, $spool, $vendor, $eta);
 }
