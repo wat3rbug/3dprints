@@ -38,13 +38,12 @@ class CommentRepository {
         }
     }
 
-    function createCommentToJob($comment, $jobid, $author) {
-        if (isset($jobid) && isset($comment) && isset($author)) {
-            $sql = "INSERT INTO comments (comment, jobid, originator) VALUES (?, ?, ?)";
+    function createCommentToJob($comment, $jobid) {
+        if (isset($jobid) && isset($comment)) {
+            $sql = "INSERT INTO comments (comment, jobid, originator) VALUES (?, ?, 'Doug')";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(2, $jobid);
             $statement->bindParam(1, $comment);
-            $statement->bindParam(3, $author);
             $statement->execute();
         }
     }

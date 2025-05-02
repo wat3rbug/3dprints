@@ -302,58 +302,79 @@
 <div class="modal editOrder" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-center">Edit Order</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-header d-block alert-warning">
+                <div class="row">
+                    <div class="col-lg-2">&nbsp;</div>
+                    <div class="col-lg-8 text-center">
+                        <h5 class="modal-title text-center">Edit Order Details</h5>
+                    </div>
+                    <div class="col-lg-2 text-right">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="modal-body">
-                <div class="row text-center">
-                        Order Details
+                <div class="row">
+                    <div class="col-sm-5 text-right">
+                        <label>Vendor</label>                
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control editOrderVendor"></select>
+                    </div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
-                    <div class="col-sm-1">&nbsp;</div>
-                    <div class="col-sm-10 text-center">
-                        <table class="table table-striped orderdetails">
-                            <thead>
-                                <tr>
-                                    <th class="info">Color</th>
-                                    <th class="info">Type</th>
-                                    <th class="info">Size</th>
-                                </tr>
-                            </thead>
-                            <tbody><tr></tr></tbody>
-                        </table>
+                    <div class="col-sm-5 text-right">
+                        <label>Size</label>                
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="input-group-text">kg</span>
+                            </div>
+                            <input type="number" class="form-control editOrderSize">
+                        </div>
                     </div>
                 </div>
+                <div class="row">&nbsp;</div>
                 <div class="row">
-                    <div class="col-sm-5 text-right"><b>Ordered</b></div>
-                    <div class="col-sm-4 text-left">
-                        <input type="hidden" class="editOrderId" />
-                        <input type="date" class="form-control editOrdered" />
+                    <div class="col-sm-5 text-right">
+                        <label>Color</label>                
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control editOrderColor">
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-5 text-right">
+                        <label>Type</label>                
+                    </div>
+                    <div class="col-sm-4">
+                        <select class="form-control editOrderType"></select>
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     <div class="col-sm-5 text-right"><b>Shipped</b></div>
                     <div class="col-sm-4 text-left">
-                        <input type="date" class="form-control editShipped" />
+                        <input type="date" class="form-control editOrderShipped" />
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     <div class="col-sm-5 text-right"><b>Received</b></div>
                     <div class="col-sm-4 text-left">
-                        <input type="date" class="form-control editReceived" />
+                        <input type="date" class="form-control editOrderReceived" />
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">
                     <div class="col-sm-5 text-right"><b>ETA</b></div>
                     <div class="col-sm-4 text-left">
-                        <input type="date" class="form-control editEta" />
+                        <input type="date" class="form-control editOrderEta" />
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
@@ -361,10 +382,10 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" title="Update the order"
                     onclick="updateOrder()">
-                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    <span class="glyphicon glyphicon-refresh"></span>
                     &nbsp;Update
                 </button>&nbsp;
-                <button type="button" class="btn btn-default" title="cancel changes" onclick="closeEditSpoolType()">
+                <button type="button" class="btn btn-default" title="cancel changes" data-dismiss="modal">
                     <span class="glyphicon glyphicon-ban-circle"></span>
                 &nbsp;Cancel</button>
             </div>

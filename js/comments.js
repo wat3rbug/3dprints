@@ -7,14 +7,12 @@ $(document).ready(function() {
 function addComment() {
     var job = $('.commentJobId').val();
     var comment = $('.addCommentBox').val();
-    var author = $('.addAuthor').val();
     $.ajax({
         url: "repos/createComment.php",
         type: "post",
         data: {
             "job": job,
-            "comment": comment,
-            "author": author
+            "comment": comment
         },
         success: function(results) {
             closeComments();
@@ -47,14 +45,13 @@ function viewComments(id) {
             $('.commentJobId').val(id);
             $('.commentsTable').find('tbody tr').remove();
             if (results == null || results.length == 0) {
-                var line = '<tr><td colspan="3" class="text-center">No comments</td></tr>';
+                var line = '<tr><td colspan="2" class="text-center">No comments</td></tr>';
                 $('.commentsTable').append(line);
             } else {
                 for(i = 0; i < results.length; i++) {
                     var result = results[i];
                     var line = '<tr><td>' + result.comment_date + '</td>';
-                    line += '<td>' + result.comment + '</td>';
-                    line += '<td>' + result.originator + '</td></tr>';
+                    line += '<td>' + result.comment + '</td></tr>';
                     $('.commentsTable').append(line);
                 }
             }

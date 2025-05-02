@@ -35,6 +35,20 @@ class OrderRepository {
         }
     }
 
+    function getOrderById($id) {
+        if (isset($id)) {
+            $sql = "SELECT eta, spools.id, ordered, shipped, received, vendors.id AS vendor, color, spool_types.id AS spooltype, size FROM orders JOIN vendors ON vendorid = vendors.id JOIN spools ON orders.spoolid = spools.id JOIN spool_types ON spool_types.id = spools.type where orders.id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
+            $statement->execute();
+            $output = array();
+            while($row = $statement->fetch()) {
+                $output[] = $row;
+            }
+            return $output;
+        }
+    }
+
     function getIncompleteOrders() {
         $sql = "SELECT orders.*, vendors.name AS vendor, vendors.url AS url from orders JOIN vendors on vendorid = vendors.id WHERE shipped IS NULL or received IS NULL";
         $statement = $this->conn->prepare($sql);
@@ -73,15 +87,38 @@ class OrderRepository {
             $statement->execute();
     }
 
-    function updateOrder($id, $spool, $vendor, $eta) {
+    function updateOrder($cust_dict) {
+        $id = $cust_dict["id"];
+        $size = $cust_dict["size"];
+        $type = $cust_dict["type"];
+        $color = $cust_dict["color"];
+        $eta = $cust_dict["eta"];
+        $shipped = $cust_dict["shipped"];
+        $received = $cust_dict["received"];
+        $vendor = $cust_dict["vendor"];
         if (isset($id) && $id > 0 && isset($spool) && isset($vendor)) {
-            $sql = "UPDATE orders SET spoolid = ?, vendorid = ?, eta = ? WHERE id = ?";
+            $sql = "UPDATE orders SET shipped = ?, received = ?, eta = ?, vendorid = ? WHERE id = ?";
             $statement = $this->conn->prepare($sql);
-            $statement->bindParam(1, $spool);
-            $statement->bindParam(2, $vendor);
+            $statement->bindParam(1, $shipped);
+            $statement->bindParam(2, $received);
             $statement->bindParam(3, $eta);
-            $statement->bindParam(4, $id);
+            $statement->bindParam(4, $vendor);
+            $statement->bindParam(5, $id);
             $statement->execute();
+        }
+    }
+
+    function getSpoolIdFromOrderId($id) {
+        if (isset($id)) {
+            $sql ="SELECT spoolid FROM orders WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
+            $statement->execute();
+            $output = array();
+            while ($row = $statement->fetch()) {
+                $output[] = $row;
+            }
+            return $output;
         }
     }
 
