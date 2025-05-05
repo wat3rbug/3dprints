@@ -5,6 +5,9 @@ $(document).ready(function() {
         cleanOrderModal();
         $('.addOrder').modal('show');
     });
+
+    buildOrderTypeDropDowns();
+    buildVendorDropDowns();
 });
 
 /**
@@ -31,6 +34,7 @@ function getOrderDetails(id) {
                 $('.editShipped').val(results[0]['shipped']);
                 $('.editOrdered').val(results[0]['ordered']);
                 $('.editReceived').val(results[0]['received']);
+                $('.editETA').val(results[0]['eta']);
             }
         }
     })
@@ -54,10 +58,33 @@ function getDetailRow(result) {
  * and updates the database and then reloaded the tables.
  */
 function updateOrder() {
-    var shipped = $('.editShipped').val();
-    var ordered = $('.editOrdered').val();
-    var received = $('.editReceived').val();
-    var vendor = $('.editVendor').val();
+    var id = $('.editOrderId').val();
+    var size = $('.editOrderSize').val();
+    var type = $('.editOrderType').val();
+    var color = $('.editOrderColor').val();
+    var eta = $('.editOrderEta').val();
+    var shipped = $('.editOrderShipped').val();
+    var received = $('.editOrderReceived').val();
+    var vendor = $('.editOrderVendor').val();
+    $.ajax({
+        url: "repos/updateOrder.php",
+        type: "post",
+        data: {
+            "id": id,
+            "size": size,
+            "type": type,
+            "color": color,
+            "eta": eta,
+            "shipped": shipped,
+            "received": received,
+            "vendor": vendor
+        },
+        success: function(results) {
+            cleanEditOrderModal();
+            $('.editOrder').modal('toggle');
+            loadOrderTable();
+        }
+    })
 }
 
 function createOrder() {
@@ -65,6 +92,7 @@ function createOrder() {
     var vendor = $('.addOrderVendor').val();
     var spool = $('.addOrderType').val();
     var size = $('.addOrderSize').val();
+    var eta = $('.addOrderEta').val();
     $.ajax({
         url: "repos/createOrder.php",
         type: "post",
@@ -72,6 +100,7 @@ function createOrder() {
             "color": color,
             "vendor": vendor,
             "type": spool,
+            "eta": eta,
             "size": size
             
         },
@@ -97,7 +126,7 @@ function loadOrderTable() {
         success: function(results) {
             $('.orderlisting tbody').empty();
             if (results == null || results.length == 0) {
-                var nodata = '<tr><td class="text-center" colspan="6">';
+                var nodata = '<tr><td class="text-center" colspan="7">';
                 nodata += 'No orders</td></tr>';
                 $('.orderlisting tbody').append(nodata);
             } else {
@@ -109,9 +138,11 @@ function loadOrderTable() {
                     row += '<td>' + formatNullableDate(result['ordered']) + '</td>';
                     row += '<td>' + formatNullableDate(result['shipped']) + '</td>';
                     row += '<td>' + formatNullableDate(result['received']) + '</td>';
+                    row += '<td>' + formatNullableDate(result['eta']) + '</td>';
                     $('.orderlisting tbody').append(row);
                 }
             }
+
         }
     });
 }
@@ -187,7 +218,15 @@ function shipped(id) {
 }
 
 function cleanEditOrderModal() {
-
+    $('.editOrderId').val('');
+    $('.editOrderSize').val('');
+    $('.editOrderType').val('');
+    $('.editOrderColor').val('');
+    $('.editOrderEta').val('');
+    $('.editOrderScheduled').val('');
+    $('.editOrderShipped').val('');
+    $('.editOrderReceived').val('');
+    $('.editOrderVendor').val('');
 }
 
 function editOrder(id) {
@@ -204,8 +243,12 @@ function editOrder(id) {
                 cleanEditOrderModal();
                 $('.editOrderId').val(order['id']);
                 $('.editOrderSize').val(order['size']);
-                $('.editOrderType').val(order['type']);
-                $('.edirOrderColor').val(order['color']);
+                $('.editOrderType').val(order['spooltype']);
+                $('.editOrderColor').val(order['color']);
+                $('.editOrderEta').val(order['eta']);
+                $('.editOrderShipped').val(order['shipped']);
+                $('.editOrderReceived').val(order['received']);
+                $('.editOrderVendor').val(order['vendor']);
                 $('.editOrder').modal('show');
             }
         }
@@ -231,6 +274,7 @@ function cleanOrderModal() {
     $('.addOrderColor').val('');
     $('.addOrderSize').val('');
     $('.addOrderType').val('');
+    $('.addOrderEta').val('');
 }
 
 function closeAddOrder() {
@@ -276,7 +320,6 @@ function loadDeliveryStats() {
                 var p75 = Math.floor(specific[high].day);
                 var p50 = Math.floor(specific[mid].day);
                 var p25 = Math.floor(specific[low].day);
-                // var last = specific[size].day;
                 var row = vendor + '<div class="progress">';
                 row += makeProgressSection(p25, longest, "info");
                 row += makeProgressSection(p50, longest, "warning");
@@ -293,3 +336,38 @@ function makeProgressSection(sect, last, color) {
     row += sect / last * 100 + '%">' + sect + '</div>';
     return row;
 }
+
+function buildOrderTypeDropDowns() {
+    $.ajax({
+        url: "repos/getSpoolTypes.php",
+        dataType: "json",
+        success: function(results) {
+            $('.editOrderType').empty();
+            if (results != null && results.length > 0) {
+                for (i = 0; i < results.length; i++) {
+                    var spool = results[i];
+                    var option = '<option value="' + spool.id + '">' + spool.spooltype + '</option>';
+                    $('.editOrderType').append(option);
+                }
+            }
+        }
+    });
+}
+
+function buildVendorDropDowns() {
+    $.ajax({
+        url: "repos/getAllVendors.php",
+        dataType: "json",
+        success: function(results) {
+            $('.editOrderVendor').empty();
+            if (results != null && results.length > 0) {
+                for (i = 0; i < results.length; i++) {
+                    var vendor = results[i];
+                    var option = '<option value="' + vendor.id + '">' + vendor.name + '</option>';
+                    $('.editOrderVendor').append(option);
+                }
+            }
+        }
+    });
+}
+

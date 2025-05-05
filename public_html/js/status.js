@@ -43,17 +43,17 @@ function addStatus() {
 }
 
 function listCommentsById(id, comments) {
-    var block = '<button type="button" class="btn btn-link btn-sm" title="View comments" onclick="viewComments(' + id + ')">';
+    var block = '<button type="button" class="btn btn-link" title="View comments" onclick="viewComments(' + id + ')">';
     block += comments + '</button>&nbsp;';
     return block;
 }
 
 function lineitem(item) {
     var input = '<li class="list-group-item"><div class="button-group">';
-    input += '<button type="button" class="btn btn-link btn-sm" title="Delete Status" style="border:none; padding: 2px;" ';
+    input += '<button type="button" class="btn btn-link" title="Delete Status" style="border:none; padding: 2px;" ';
     input += 'onclick="removeStatus(' + item['id'] + ')" >';
     input += '<span class="glyphicon glyphicon-remove"></span></button>';
-    input += '<button type="button" class="btn btn-link btn-sm" title="Edit Status" style="border:none; padding: 2px;" ';
+    input += '<button type="button" class="btn btn-link" title="Edit Status" style="border:none; padding: 2px;" ';
     input += 'onclick="editStatus(' + item['id'] + ')" ><span class="glyphicon glyphicon-pencil"></span>';
     input += '</button>&nbsp;' + item['status'] + '</div></li>';
     $('.statusgroup').append(input);

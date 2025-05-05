@@ -22,12 +22,7 @@ function getCompletedJobs() {
             } else {
                 for (i = 0; i < results.length; i++) {
                     var result = results[i];
-                    var line = '<tr>';
-                    line += '<td style="width: 65px"><button class="btn btn-link btn-sm" style="border:none; padding:2px" ';
-                    line += 'onclick="undo(' + result['id'] + ')" title="Undo completion"><span class="glyphicon glyphicon-refresh">';
-                    line += '</span></button>';
-                    line += '<button class="btn btn-link btn-sm" style="border:none; padding:2px" onclick="copy(' + result['id'];
-                    line += ')" title="Duplicate as new task"><span class="glyphicon glyphicon-duplicate"></span></button></td>';
+                    var line = '<tr><td style="width:65px">' + makeUndoBtn(result['id']) + makeDupeBtn(result['id']) + '</td>';
                     line += '<td>' + result['name'] + '</td>';
                     line += '<td><a href="' + result['url'] + '" target="_blank">' +result['url'] + '</a></td>';
                     if (result['photo'] == null || result['photo'] == "") {
@@ -42,6 +37,20 @@ function getCompletedJobs() {
             }
         }
     })
+}
+
+function makeUndoBtn(id) {
+    var line = '<button class="btn btn-link" style="border:none; padding:2px" ';
+    line += 'onclick="undo(' + id + ')" title="Undo completion">';
+    line += '<span class="glyphicon glyphicon-refresh"></span></button>';
+    return line;
+}
+
+function makeDupeBtn(id) {
+    var line = '<button class="btn btn-link" style="border:none; padding:2px" ';
+    line += 'onclick="copy(' + id + ')" title="Duplicate as new task">';
+    line += '<span class="glyphicon glyphicon-plus-sign"></span></button>';
+    return line;
 }
 function copy(id) {
     $.ajax({

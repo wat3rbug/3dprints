@@ -1,5 +1,6 @@
 $(document).ready(function() {
     listAllSpools();
+    listOnOrder();
 
     $('.addSpool').on('click', function() {
         addSpool();
@@ -9,6 +10,7 @@ $(document).ready(function() {
     getSpoolSizeCounts();
     getSpoolTypeCounts();
     getSpoolCountByMonth();
+    loadSpoolTotalTable();
 });
 
 function getSpoolColorCounts() {
@@ -117,13 +119,14 @@ function addSpool() {
             $('.addSpoolTypeSelect').val('');
             $('.addSpoolSize').val('');
             listAllSpools();
+            listOnOrder();
         }
     })
 }
 
 function listAllSpools() {
     $.ajax({
-        url: "repos/getAllSpools.php",
+        url: "repos/getSpoolInventory.php",
         dataType: "json",
         success: function(results) {
             $('.spoollisting tbody').empty();
@@ -139,6 +142,30 @@ function listAllSpools() {
                     line += '<td>' + result['spooltype'] + '</td>';
                     line += '<td>' + result['size'] + '</td></tr>';
                     $('.spoollisting tbody').append(line);
+                }
+            }
+        }
+    });
+}
+
+function listOnOrder() {
+    $.ajax({
+        url: "repos/getSpoolsOnOrder.php",
+        dataType: "json",
+        success: function(results) {
+            $('.spoolonorder tbody').empty();
+            if (results.length  == 0 || results == null) {
+                var empty = '<tr><td colspan="4" class="text-center">No Spools</td>No jobs</td></tr>';
+                $('.spoolonorder').find('tbody tr').remove();
+                $('.spoolonorder').append(empty);
+            } else {
+                for (i = 0; i < results.length; i++) {
+                    var result = results[i];
+                    var line = '<tr>' + getActionBox(result['id']);
+                    line += '<td>' + getColorLink(result) + '</td>';
+                    line += '<td>' + result['spooltype'] + '</td>';
+                    line += '<td>' + result['size'] + '</td></tr>';
+                    $('.spoolonorder tbody').append(line);
                 }
             }
         }
@@ -173,6 +200,7 @@ function emptySpool(id) {
         },
         success: function(results) {
             listAllSpools();
+            listOnOrder();
         }
     })
 }
@@ -185,6 +213,7 @@ function removeSpool(id) {
         },
         success: function(results) {
             listAllSpools();
+            listOnOrder();
         }
     })
 }
@@ -205,6 +234,7 @@ function saveSpool() {
         },
         success: function(results) {
             listAllSpools();
+            listOnOrder();
             listSpoolTypeInsert();
             $('.editSpoolColor').val('');
             $('.editSpoolId').val('');
@@ -233,10 +263,14 @@ function getSpoolCountByMonth() {
             results.forEach(function(count){
                 if (count.count > longest) longest = count.count;
             });
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 
+                'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 
+                'Dec'];
             results.forEach(function(count){
-                var line = '<div class="progress">';
+                var line = months[count.month -1] + ' ' + count.year;
+                line += '<div class="progress">';
                 line += getBarForMonthCount(longest, count);
-                line += '</div>';
+                line += '</div><div class="row">&nbsp;</div>';
                 $('.countgroup').append(line);
             });
         }
@@ -246,10 +280,27 @@ function getBarForMonthCount(longest, count) {
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 
         'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 
         'Dec'];
-    var row = '<div class="progress-bar bg-success" role="progressbar"';
+    var row = '<div class="progress-bar bg-primary" role="progressbar"';
     row += 'aria-valuenow="' + count.count + '" aria-valuemax="';
     row += longest + '" style="width: ' + count.count / longest * 100 
-    row += '%">' + count.count + ' - ' + months[count.month - 1] + ' ' 
-    row += count.year + '</div>';
+    row += '%">' + count.count + '</div>';
     return row;
+}
+
+function loadSpoolTotalTable() {
+    $.ajax({
+        url: "repos/getOrdersPerYear.php",
+        dataType: "json",
+        success: function(results) {
+            if (results != null && results.length > 0) {
+                for(i = 0; i < results.length; i++) {
+                    var ytd = results[i];
+                    if (ytd.year != null) {
+                        var line = '<p><b>' + ytd.count + '</b> - ' + ytd.year + '</p>';
+                        $('.totalspools').append(line);
+                    }
+                }
+            }
+        }
+    })
 }

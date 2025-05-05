@@ -24,13 +24,28 @@ class OrderRepository {
         }
     }
 
-    function createOrder($spool, $vendor) {
+    function createOrder($spool, $vendor, $eta) {
         if (isset($spool) && isset($vendor)) {
-            $sql = "INSERT INTO orders (spoolid, vendorid) VALUES(?, ?)";
+            $sql = "INSERT INTO orders (spoolid, vendorid, eta) VALUES(?, ?, ?)";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $spool);
             $statement->bindParam(2, $vendor);
+            $statement->bindParam(3, $eta);
             $statement->execute();
+        }
+    }
+
+    function getOrderById($id) {
+        if (isset($id)) {
+            $sql = "SELECT eta, spools.id, ordered, shipped, received, vendors.id AS vendor, color, spool_types.id AS spooltype, size FROM orders JOIN vendors ON vendorid = vendors.id JOIN spools ON orders.spoolid = spools.id JOIN spool_types ON spool_types.id = spools.type where orders.id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
+            $statement->execute();
+            $output = array();
+            while($row = $statement->fetch()) {
+                $output[] = $row;
+            }
+            return $output;
         }
     }
 
@@ -46,7 +61,7 @@ class OrderRepository {
     }
 
     function getAllOrders() {
-        $sql = "SELECT spools.id, ordered, shipped, received, name AS vendor, color, spooltype,size from orders JOIN vendors on vendorid = vendors.id join spools ON orders.spoolid = spools.id JOIN spool_types ON spool_types.id = spools.type ORDER BY id DESC;";
+        $sql = "SELECT eta, spools.id, ordered, shipped, received, name AS vendor, color, spooltype,size from orders JOIN vendors on vendorid = vendors.id join spools ON orders.spoolid = spools.id JOIN spool_types ON spool_types.id = spools.type ORDER BY id DESC;";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
@@ -72,14 +87,38 @@ class OrderRepository {
             $statement->execute();
     }
 
-    function updateOrder($id, $spool, $vendor) {
+    function updateOrder($cust_dict) {
+        $id = $cust_dict["id"];
+        $size = $cust_dict["size"];
+        $type = $cust_dict["type"];
+        $color = $cust_dict["color"];
+        $eta = $cust_dict["eta"];
+        $shipped = $cust_dict["shipped"];
+        $received = $cust_dict["received"];
+        $vendor = $cust_dict["vendor"];
         if (isset($id) && $id > 0 && isset($spool) && isset($vendor)) {
-            $sql = "UPDATE orders SET spoolid = ?, vendorid = ? WHERE id = ?";
+            $sql = "UPDATE orders SET shipped = ?, received = ?, eta = ?, vendorid = ? WHERE id = ?";
             $statement = $this->conn->prepare($sql);
-            $statement->bindParam(1, $spool);
-            $statement->bindParam(2, $vendor);
-            $statement->bindParam(3, $id);
+            $statement->bindParam(1, $shipped);
+            $statement->bindParam(2, $received);
+            $statement->bindParam(3, $eta);
+            $statement->bindParam(4, $vendor);
+            $statement->bindParam(5, $id);
             $statement->execute();
+        }
+    }
+
+    function getSpoolIdFromOrderId($id) {
+        if (isset($id)) {
+            $sql ="SELECT spoolid FROM orders WHERE id = ?";
+            $statement = $this->conn->prepare($sql);
+            $statement->bindParam(1, $id);
+            $statement->execute();
+            $output = array();
+            while ($row = $statement->fetch()) {
+                $output[] = $row;
+            }
+            return $output;
         }
     }
 
@@ -97,6 +136,34 @@ class OrderRepository {
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
+        while($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
+
+    function getOrdersPerYear() {
+        $sql = "SELECT count(*) AS count, YEAR(received) AS `year` FROM orders GROUP BY year(received)";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        return $output;
+    }
+
+    function getOnTimePercentage() {
+        $sql = "SELECT COUNT(*) AS count, v.name AS vendor FROM orders AS o JOIN vendors AS v ON o.vendorid = v.id WHERE eta <= received GROUP BY vendorid ORDER BY count DESC";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
+        $output = array();
+        while($row = $statement->fetch()) {
+            $output[] = $row;
+        }
+        $sql = "SELECT COUNT(*) AS count, v.name AS vendor FROM orders AS o JOIN vendors AS v ON o.vendorid = v.id GROUP BY vendorid";
+        $statement = $this->conn->prepare($sql);
+        $statement->execute();
         while($row = $statement->fetch()) {
             $output[] = $row;
         }

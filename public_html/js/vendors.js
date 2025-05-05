@@ -4,6 +4,8 @@ $(document).ready(function() {
     $('.addVendorBtn').on('click', function() {
         addVendor();
     });
+
+    loadOnTimeTable();
 });
 
 function addVendor() {
@@ -20,6 +22,7 @@ function addVendor() {
         },
         success: function(results) {
             reloadTables();
+            loadOrderVendorSelectors();
         }
     })
 }
@@ -56,6 +59,7 @@ function removeVendor(id) {
         },
         success: function(results) {
             reloadTables();
+            loadOrderVendorSelectors();
         }
     })
 }
@@ -76,6 +80,7 @@ function updateVendor() {
         },
         success: function(results) {
             reloadTables();
+            loadOrderVendorSelectors();
         }
     });
 }
@@ -118,6 +123,7 @@ function cleanEditVendorModal() {
     $('.editVendorName').val('');
     $('.editVendorUrl').val('');
 }
+
 function loadOrderVendorSelectors() {
     $.ajax({
         url: "repos/getAllVendors.php",
@@ -133,5 +139,32 @@ function loadOrderVendorSelectors() {
                 }
             }
         }
-    })
+    });
 }
+
+function loadOnTimeTable() {
+    $.ajax({
+        url: "/repos/getOnTimePercentage.php",
+        dataType: "json",
+        success: function(results) {
+            if (results != null && results.length > 0) {
+                $('.ontime').empty();
+                var vendors = [];
+                for(i = 0; i < results.length; i++) {
+                    if (!vendors.includes(results[i]['vendor'])) {
+                        vendors.push(results[i]['vendor']);
+                    }
+                }
+                for (i = 0; i < vendors.length; i++) {
+                    var base = results.filter(x => x.vendor == vendors[i]);
+                    var percentraw = base[0]['count'] / base[1]['count'] * 100;
+                    var percent = percentraw.toFixed(1);
+                    $('.ontime').append('<p><b>' + percent + '%</b> - ' + base[0]['vendor'] + '</p>');
+                }
+            }
+        }
+    });
+
+
+}
+
