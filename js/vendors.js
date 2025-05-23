@@ -149,16 +149,27 @@ function loadOnTimeTable() {
         success: function(results) {
             if (results != null && results.length > 0) {
                 $('.ontime').empty();
-                for (i = 0; i < results.length; i++) {
-                    var percent = results[i];
-                    var line = '<p><b>' + percent.count + '</b> - ';
-                    line += percent.vendor + '</p>';
-                    $('.ontime').append(line);
+                var vendors = [];
+                for(i = 0; i < results.length; i++) {
+                    if (!vendors.includes(results[i]['vendor'])) {
+                        vendors.push(results[i]['vendor']);
+                    }
+                }
+                for (i = 0; i < vendors.length; i++) {
+                    var base = results.filter(x => x.vendor == vendors[i]);
+                    var percentraw;
+                    if (base.length == 1) {
+                        percentraw = 100;
+                    } else {
+                        percentraw = base[0]['count'] / base[1]['count'] * 100;
+                    }
+                    var percent = percentraw.toFixed(1);
+                    $('.ontime').append('<p><b>' + percent + '%</b> - ' + base[0]['vendor'] + '</p>');
                 }
             }
-
-
-
         }
     });
+
+
 }
+
