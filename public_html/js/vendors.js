@@ -157,9 +157,14 @@ function loadOnTimeTable() {
                 }
                 for (i = 0; i < vendors.length; i++) {
                     var base = results.filter(x => x.vendor == vendors[i]);
-                    var percentraw = base[0]['count'] / base[1]['count'] * 100;
+                    var percentraw;
+                    if (base.length == 1) {
+                        percentraw = 100;
+                    } else {
+                        percentraw = base[0]['count'] / base[1]['count'] * 100;
+                    }
                     var percent = percentraw.toFixed(1);
-                    $('.ontime').append('<p><b>' + percent + '%</b> - ' + base[0]['vendor'] + '</p>');
+                    $('.ontime').append('<p><b>' + percent + '%</b> - ' + base[0]['vendor'] + ' <b>Orders:</b> ' + base[1]['count'] +'</p>');
                 }
             }
         }

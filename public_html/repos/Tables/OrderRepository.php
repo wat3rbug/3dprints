@@ -154,7 +154,7 @@ class OrderRepository {
     }
 
     function getOnTimePercentage() {
-        $sql = "SELECT COUNT(*) AS count, v.name AS vendor FROM orders AS o JOIN vendors AS v ON o.vendorid = v.id WHERE eta <= received GROUP BY vendorid ORDER BY count DESC";
+        $sql = "SELECT COUNT(*) AS count, v.name AS vendor FROM orders AS o JOIN vendors AS v ON o.vendorid = v.id WHERE eta >= received GROUP BY vendorid ORDER BY count DESC";
         $statement = $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
