@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<head>
+    <meta charsset="utf-8">
+    <title>3D Print Listings - Printers</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/frozenheader.css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+	
+    <script src="js/printers.js"></script>
+    <script src="js/nav.js"></script>
+</head>
+<body>
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-sm-1">&nbsp;</div>
+    <div class="col-sm-10 text-center">
+        <div class="jumbotron">
+            <h1>3D Printer Listings</h1>
+            <p>The place to add and remove printers</p>
+        </div>
+    </div>
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-lg-1">&nbsp;</div>
+    <div class="col-lg-10" role="navigation">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" id="active-tab" data-toggle="tab" role="tab" aria-controls="active" href="index.html">Active Print Ideas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="complete-tab" data-toggle="tab" role="tab" aria-control="completed" href="completed.html">Completed Prints</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="spool-tab" data-toggle="tab" role="tab" aria-control="spool" href="spools.html">Spool History</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="order-tab" data-toggle="tab" role="tab" aria-control="order" href="orders.html">Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" id="printer-tab" data-toggle="tab" role="tab" aria-control="printer" href="printers.html">Printers</a>
+            </li>
+        </ul>
+        </ul>
+    </div>
+</div>
+
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-sm-1">&nbsp;</div>
+    <div class="col-sm-10">
+        <div class="frozen-container">
+            <table class="table table-striped" id="printers">
+                <thead>
+                    <tr>
+                        <th class="info" style="width: 65px">Action</th>
+                        <th class="info">Name</th>
+                        <th class="info">Manufacturer</th>
+                        <th class="info">Model</th>
+                        <th class="info">Supports Multicolor</th>
+                        <th class="info">Status</th>
+                        <th class="info">Picture</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn btn-success addPrinterBtn">
+                                <span class="glyphicon glyphicon-plus"></span>&nbsp;Printer
+                            </button>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control addPrinterName"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control addPrinterMfr"/>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control addPrinterMdl"/>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-control" id="addPrinterMulti" checked/>
+                        </td>
+                        <td>
+                            <select class="form-control printerstatus">
+                                <option value="1">Unknown</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="file" class="form-control addPrinterPic"/>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- edit printer modal section -->
+
+<div class="modal editPrinter" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-block alert-warning">
+                <h4 class="modal-title text-center">Edit Printer</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        Printer Name
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <input type="hidden" class="editPrinterId" />
+                        <input type="text" class="form-control editPrinterName" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        Manufacturer
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control editPrinterMfr" />
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        Model
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <input type="text" class="form-control editPrinterMdl" />
+                    </div>
+                </div>
+                 <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        Is set for multicolor prints
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <input type="checkbox" class="form-control editPrinterMulti" />
+                    </div>
+                </div>
+                 <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-6 text-right">
+                        Status
+                    </div>
+                    <div class="col-sm-4 text-left">
+                        <select class="form-control editPrinterStatus"></select>    
+                    </div>
+                </div>
+                 <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                        Picture
+                    </div>
+                    <div class="col-sm-5">
+                        <img class="editPrinterPicFrame" height="200" width="200">
+                    </div>
+                    <div class="col-sm-3 text-left">
+                        <input type="file" class="form-control editPrinterPic" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" title="Update the printer"
+                    onclick="updatePrinter()">
+                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    &nbsp;Update
+                </button>&nbsp;
+                <button type="button" class="btn btn-default" title="cancel changes" onclick="closeEditPrinter()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                &nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
