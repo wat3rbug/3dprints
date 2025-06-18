@@ -29,4 +29,13 @@ Since there is always work to do I have written it here.  In fact, I came here t
   <li>Add a small section in order history that has spool orders YTD Total for wider trends - done</li>
   <li>Make scrollable purchased spools table with frozen headers. - done</li>
 </ul>
+4. Printers
+<ul>
+  <li>Make new page with the printers, their specificcations, and names</li>
+  <li>Update database to include a printers table</li>
+  <li>Update active prints page to allow a dropdown for the printers by name</li>
+  <li>Include a printer status page on the printers page</li>
+  <li>Update database to allow a printer status table</li>
+  
+</ul>
 
