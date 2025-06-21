@@ -1,6 +1,6 @@
-3dprints # A weekend web page to track print jobs for the 3d printer.
+3dprints # A weekend web page to track print jobs for the 3d printer/s.  Im wondering if I should abandon this page, now that a) I have mulitple printers, and b) I discovered Bambu Labs has a print management application that does what I need and then some.
 
-<h1>3D Prints</h1> - redone Mar 11 2025
+<h1>3D Prints</h1> - A simple wish list print website.  It does roughly keep track of the spools I use, the ordering and order tracking and other bobs and bits.  A weekend project that occasionally gets a weekend update.  Not like the SNL weekend update.
 
 <h2>Purpose</h2>
 
