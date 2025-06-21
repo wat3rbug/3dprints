@@ -36,6 +36,6 @@ Since there is always work to do I have written it here.  In fact, I came here t
   <li>Update active prints page to allow a dropdown for the printers by name</li>
   <li>Include a printer status page on the printers page - done</li>
   <li>Update database to allow a printer status table - done</li>
-  
+  <li>A minor annoyance.  The tab navigation bar was static, so I made it somewhat dynamic.  The page name and the title of the tab are key/value pairs and is active based on what is requested.  Its simple, but it works for now. - done</li>
 </ul>
 
