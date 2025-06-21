@@ -31,11 +31,11 @@ Since there is always work to do I have written it here.  In fact, I came here t
 </ul>
 4. Printers
 <ul>
-  <li>Make new page with the printers, their specifications, and names</li>
+  <li>Make new page with the printers, their specifications, and names - done</li>
   <li>Update database to include a printers table - done</li>
   <li>Update active prints page to allow a dropdown for the printers by name</li>
   <li>Include a printer status page on the printers page - done</li>
-  <li>Update database to allow a printer status table</li>
+  <li>Update database to allow a printer status table - done</li>
   
 </ul>
 
