@@ -135,7 +135,7 @@ function editPrinter(id) {
                 $('.editPrinterPic').val(printer['pic']);
                 $('.editPrinterStatus').val(printer['status']);
                 if (printer['multicolor'] == YES) {
-                    $('.editPrinterMulti').prop(':checked');
+                    $('.editPrinterMulti').prop('checked', true);
                 } else {
                     $('.editPrinterMulti').prop('checked', false);
                 }
@@ -151,12 +151,20 @@ function closeEditPrinter() {
 }
 
 function updatePrinter() {
+    var YES = 1;
+    var NO = 0;
     $('.editPrinter').modal('hide');
     var id = $('.editPrinterId').val();
     var name = $('.editPrinterName').val();
     var make = $('.editPrinterMfr').val();
     var model = $('.editPrinterMdl').val();
-    var multicolor = $('.editPrinterMulti').is('checked') == true ? 0 : 1;
+    var multicolor;
+    // if ($('.editPrinterMulti').is(':checked')) {
+    //     multicolor = YES;
+    // } else {
+    //     multicolor = NO;
+    // }
+    var multicolor = $('.editPrinterMulti').is(':checked') == true ? YES : NO;
     var status = $('.editPrinterStatus').val();
     //$('.editPrinterPicFrame').attr("src=" + printer['pic']);
     var pic = $('.editPrinterPic').val();

@@ -24,8 +24,6 @@ $cust_dict = array(
 if (isset($cust_dict)) {
     $db = new OrderRepository();
     $db->updateOrder($cust_dict);
-    $data = $db->getSpoolIdFromOrderId($id);
-    $custom_dict["spool"] = $data[0]["id"];
     $db = new SpoolRepository();
     $db->updateSpool($cust_dict);
 }
