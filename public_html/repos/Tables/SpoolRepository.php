@@ -41,7 +41,7 @@ class SpoolRepository {
         $size = $dict["size"];
         $id = $dict["id"];
         if (isset($id) && isset($type) && isset($color) && isset($size)) {
-            $sql = "UPDATE spools SET s.color = ?, s.type = ?, s.size = ? WHERE id = ?";
+            $sql = "UPDATE spools SET color = ?, type = ?, size = ? WHERE id = ?";
             $statement = $this->conn->prepare($sql);
             $statement->bindParam(1, $color);
             $statement->bindParam(2, $type);

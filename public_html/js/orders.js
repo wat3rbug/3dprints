@@ -83,6 +83,9 @@ function updateOrder() {
             cleanEditOrderModal();
             $('.editOrder').modal('toggle');
             loadOrderTable();
+        },
+        error: function(results) {
+            console.log('could not update database');
         }
     })
 }

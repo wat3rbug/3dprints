@@ -97,14 +97,34 @@ class OrderRepository {
         $received = $cust_dict["received"];
         $vendor = $cust_dict["vendor"];
         if (isset($id) && $id > 0 && isset($spool) && isset($vendor)) {
-            $sql = "UPDATE orders SET shipped = ?, received = ?, eta = ?, vendorid = ? WHERE id = ?";
+            $sql = "SELECT spoolid FROM orders AS o JOIN spools AS s on o.spoolid = s.id WHERE id = ?";
             $statement = $this->conn->prepare($sql);
-            $statement->bindParam(1, $shipped);
-            $statement->bindParam(2, $received);
-            $statement->bindParam(3, $eta);
-            $statement->bindParam(4, $vendor);
-            $statement->bindParam(5, $id);
+            $statement->bindParam(1, $id);
             $statement->execute();
+            $spoolid = array();
+            while ($row = $statement->fetch()) {
+                $spoolid[] = $row;
+            }
+            return $spoolid;
+            // $sql = "UPDATE spools SET size = ?, color = ?, type = ? WHERE id = ?";
+            // $statement = $this->conn->prepare($sql);
+            // $statement->bindParam(1, $size);
+            // $statement->bindParam(2, $color);
+            // $statement->bindParam(3, $type);
+            // $statement->bindParam(4, $spoolid[0]);
+            // $statement->execute();
+            // $sql = "UPDATE orders SET shipped = ?, received = ?, eta = ?, vendorid = ? WHERE id = ?";
+            // $statement = $this->conn->prepare($sql);
+            // if (empty(trim($shipped))) $shipped = null;
+            // if (empty(trim($received))) $received = null;
+            // if (empty(trim($eta))) $eta = null;
+            // $statement->bindParam(1, $shipped, PDO::PARAM_STR);
+            // $statement->bindParam(2, $received, PDO::PARAM_STR);
+            // $statement->bindParam(3, $eta, PDO::PARAM_STR);
+            // $statement->bindParam(4, $vendor);
+            // $statement->bindParam(5, $id);
+            // $statement->execute();
+            
         }
     }
 

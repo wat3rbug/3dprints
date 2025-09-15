@@ -48,7 +48,7 @@ class JobRepository {
     }
 
     function getAllCompletedJobs() {
-        $sql = "SELECT jobs.id, jobs.name, jobs.url, jobs.photo, count(comments.comment) AS comments FROM jobs LEFT JOIN comments ON jobs.id = comments.jobid WHERE success = 1 GROUP BY jobs.id";
+        $sql = "SELECT jobs.id, jobs.name, jobs.url, jobs.photo, count(comments.comment) AS comments FROM jobs LEFT JOIN comments ON jobs.id = comments.jobid WHERE success = 1 GROUP BY jobs.id ORDER BY jobs.id DESC";
         $statement= $this->conn->prepare($sql);
         $statement->execute();
         $output = array();
